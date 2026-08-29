@@ -110,6 +110,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   /* proof/info screens with top photo */
   .top-photo{width:100%;aspect-ratio:16/9.6;margin-bottom:1.25rem}
+  .sales-photo{width:100%;border-radius:1rem;overflow:hidden;background:var(--ph-bg)}
+  .sales-photo img{width:100%;height:100%;display:block}
 
   /* simple option list */
   .opt-list{display:flex;flex-direction:column;gap:.75rem;margin-top:.5rem}
@@ -912,13 +914,13 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     {t:'Aplicativo Calistenia Asiática Atlas', d:''}
   ];
   var TESTIMONIALS = [
-    {img:'segunda ordem.webp', name:'Beatriz', tag:'Beatriz: -3kg e Corpo Tonificado em 21 dias',
+    {img:'/assets/segunda-ordem.webp', ratio:'1672/1920', name:'Beatriz', tag:'Beatriz: -3kg e Corpo Tonificado em 21 dias',
      quote:'Eu não estava muito acima do peso, mas meu corpo não tinha forma nenhuma e eu me sentia \'mole\'. Com a Calistenia Asiática, a ativação das fibras profundas esculpiu meu corpo. Em 21 dias, perdi 3kg de gordura e minha barriga ficou durinha. Meu corpo finalmente ganhou desenho e me sinto muito mais firme e segura.'},
-    {img:'terceira ordem.webp', name:'Carla', tag:'Carla: -13kg em 21 dias',
+    {img:'/assets/terceira-ordem.webp', ratio:'1/1', name:'Carla', tag:'Carla: -13kg em 21 dias',
      quote:'Eu estava perdida, sem energia e com muita vergonha do meu corpo. Achava que precisaria de horas na academia, mas a Calistenia Asiática mudou tudo. Redescobri minha força treinando no meu próprio quarto. Hoje me sinto empoderada, confiante e 13kg mais leve em apenas 3 semanas. Foi a melhor decisão que tomei!'},
-    {img:'quartaordem.webp', name:'Fernanda', tag:'Fernanda: -4kg em 14 dias',
+    {img:'/assets/quarta-ordem.webp', ratio:'1199/1189', name:'Fernanda', tag:'Fernanda: -4kg em 14 dias',
      quote:'Sempre fui desconfiada com promessas rápidas, mas as fotos não mentem. Em apenas duas semanas, a ativação das fibras profundas \'sugou\' minha barriga para dentro de um jeito que abdominal nenhum fez. Perdi 4kg muito rápido e o inchaço sumiu. Se em 14 dias estou assim, imagina no final do protocolo!'},
-    {img:'quintaordem.webp', name:'Juliana', tag:'Juliana: -8kg em 21 dias (Mãe de 2 filhos)',
+    {img:'/assets/quinta-ordem.webp', ratio:'1/1', name:'Juliana', tag:'Juliana: -8kg em 21 dias (Mãe de 2 filhos)',
      quote:'Depois da gravidez, essa \'pochete\' não saía por nada e minha postura estava horrível. Os movimentos suaves da Calistenia Asiática foram a minha salvação. Recuperei minha postura e eliminei 8kg em 21 dias. Finalmente estou vendo minha barriga ficar retinha de novo, sem precisar de impacto.'}
   ];
   var BONUSES = [
@@ -957,14 +959,14 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       h += '<div class="bullet-row"><span class="bullet-check">✓</span><span><b>' + esc(b.t) + '</b>' + (b.d ? ': ' + esc(b.d) : '') + '</span></div>';
     });
     h += '</div>';
-    h += '<div class="top-photo" style="aspect-ratio:16/10;margin:1rem 0">' + phBox(null, null, 'Primeira ordem.webp') + '</div>';
+    h += '<div class="sales-photo" style="aspect-ratio:1000/800;margin:1rem 0">' + localImg('/assets/primeira-ordem.webp', {fit:'cover'}) + '</div>';
 
     h += priceBlockHtml();
 
     h += '<h2 class="sp-h2" style="margin-top:2rem">Resultados que nos deixam orgulhosos</h2>';
     TESTIMONIALS.forEach(function(t){
       h += '<div class="testimonial">';
-      h += '<div class="top-photo" style="aspect-ratio:16/10;margin-bottom:.75rem">' + phBox(null, null, t.img) + '</div>';
+      h += '<div class="sales-photo" style="aspect-ratio:' + t.ratio + '">' + localImg(t.img, {fit:'cover'}) + '</div>';
       h += '<div class="t-tag">' + esc(t.tag) + '</div>';
       h += '<p class="t-quote">&ldquo;' + esc(t.quote) + '&rdquo;</p>';
       h += '</div>';
@@ -981,7 +983,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     h += '</div>';
 
     h += '<div class="guarantee-box">';
-    h += '<div class="top-photo" style="aspect-ratio:1/1;max-width:140px;margin:0 auto 1rem">' + phBox('/assets/garantia-30-dias-CrDEWC_J.webp', '50%') + '</div>';
+    h += '<div class="sales-photo" style="aspect-ratio:1/1;max-width:140px;margin:0 auto 1rem;border-radius:50%">' + localImg('/assets/garantia-30-dias.webp', {fit:'cover'}) + '</div>';
     h += '<h2 class="sp-h2">30 Dias de Garantia Incondicional</h2>';
     h += '<p class="sub">Nós confiamos tanto nos resultados do Protocolo de Calistenia Asiática que o risco é todo nosso.</p>';
     h += '<p class="sub">Você tem 30 dias inteiros para testar o aplicativo e todos os bônus. Se por qualquer motivo você não estiver 100% satisfeita, nós devolveremos todo o seu investimento.</p>';
