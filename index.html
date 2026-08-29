@@ -363,15 +363,15 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     { type: MULTI, q: 'Quais são as zonas que mais a preocupam?', sub: 'Por favor, selecione todas as opções aplicáveis',
       cta: 'Próximo passo', toggle: 'Melhorar o corpo inteiro',
       items: [
-        {t:'Queixo duplo'}, {t:'Braços flácidos', img:'bracos-BmNkLcku.webp'}, {t:'Seios caídos', img:'breasts-ExE0pzVF.webp'},
+        {t:'Queixo duplo', imgLocal:'/assets/queixo-duplo.webp'}, {t:'Braços flácidos', img:'bracos-BmNkLcku.webp'}, {t:'Seios caídos', img:'breasts-ExE0pzVF.webp'},
         {t:'Gordura da barriga', img:'belly-BpYW2VsZ.webp'}, {t:'Gordura nos joelhos', img:'knees-ankles-WZoJdNID.webp'},
-        {t:'Traseiro de alforje', img:'saddlebags-xkYTH-2j.webp'}, {t:'Nádegas flácidas'}, {t:'Parte interna da coxa'}
+        {t:'Traseiro de alforje', img:'saddlebags-xkYTH-2j.webp'}, {t:'Nádegas flácidas', img:'saddlebags-xkYTH-2j.webp'}, {t:'Parte interna da coxa', imgLocal:'/assets/coxa-interna.webp'}
       ] },
     { type: MULTI, q: 'Quais são as suas zonas alvo?', sub: 'Escolha todas as opções aplicáveis',
       cta: 'Próximo passo',
       items: [
-        {t:'Barriga', img:'barriga-DAcogUxf.webp'}, {t:'Bunda', img:'saddlebags-xkYTH-2j.webp'}, {t:'Pernas', img:'pernas-DV7nbtv6.webp'},
-        {t:'Peito', img:'breasts-ExE0pzVF.webp'}, {t:'Braços', img:'bracos-BmNkLcku.webp'}, {t:'Costas', img:'back-D2DUI9o8.webp'}
+        {t:'Barriga', img:'barriga-DAcogUxf.webp'}, {t:'Bunda', imgLocal:'/assets/bunda.webp'}, {t:'Pernas', img:'pernas-DV7nbtv6.webp'},
+        {t:'Peito', imgLocal:'/assets/peito.webp'}, {t:'Braços', img:'bracos-BmNkLcku.webp'}, {t:'Costas', img:'back-D2DUI9o8.webp'}
       ] },
     { type: INFO,
       photo: 'woman-ok-asian-By6X2nVW.png',
@@ -385,14 +385,14 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     { type: IMG_SINGLE, listStyle:true, q: 'Qual é o corpo dos seus sonhos?',
       items: [
         {t:'Curvado', img:'curvy-Dbj8VQuI.webp'}, {t:'Magro', img:'thin-BWWpALK0.webp'},
-        {t:'Em forma', img:'bikini-body-BG5HLQ1-.webp'}, {t:'Tonificado'}, {t:'Estou bem com meu corpo', img:'satisfied-DyDvcRJX.webp'}
+        {t:'Em forma', img:'bikini-body-BG5HLQ1-.webp'}, {t:'Tonificado', imgLocal:'/assets/tonificado.webp'}, {t:'Estou bem com meu corpo', img:'satisfied-DyDvcRJX.webp'}
       ] },
     { type: SINGLE, q: 'Há quanto tempo você estava na melhor forma da sua vida?', localPhoto:'/assets/expert-step12.png',
       options: ['1 a 2 anos atrás','3 a 5 anos atrás','Mais de 5 anos atrás','Nunca'] },
     { type: MULTI, q: 'Você tem dificuldades com algum dos seguintes itens?', sub: 'Por favor, selecione todas as opções aplicáveis',
       cta: 'Próximo passo',
       items: [
-        {t:'Costas sensíveis', img:'back-D2DUI9o8.webp'}, {t:'Joelhos sensíveis', img:'knees-ankles-WZoJdNID.webp'}, {t:'Quadril sensível', img:'hip-E-F3cLZa.webp'},
+        {t:'Costas sensíveis', img:'back-D2DUI9o8.webp'}, {t:'Joelhos sensíveis', imgLocal:'/assets/joelhos-sensiveis.webp'}, {t:'Quadril sensível', img:'hip-E-F3cLZa.webp'},
         {t:'Ombros e braços', img:'bracos-BmNkLcku.webp'}, {t:'Panturrilhas e tornozelos', img:'knees-ankles-WZoJdNID.webp'}, {t:'Nenhuma das opções acima'}
       ] },
     { type: SINGLE, q: 'Você se sente confortável ao se exercitar?',
@@ -643,20 +643,27 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     return h;
   }
 
+  // returns markup for an item thumbnail: local repo asset takes priority over
+  // a hotlink to the original site, falling back to a placeholder box.
+  function itemThumbHtml(it, shape){
+    if (it.imgLocal) return '<div class="ph-img" style="border-radius:' + (shape||'1.1rem') + '">' + localImg(it.imgLocal, {fit:'cover'}) + '</div>';
+    return phBox(it.img ? '/assets/'+it.img : null, shape);
+  }
+
   // ---------- IMG_SINGLE ----------
   function renderImgSingle(step){
     var h = '<h1>' + esc(step.q) + '</h1>';
     if (step.listStyle){
       h += '<div class="img-list">';
       step.items.forEach(function(it){
-        h += '<button class="img-list-row" onclick="__fn.next()"><span class="thumb">' + phBox(it.img ? '/assets/'+it.img : null, '12px') + '</span><span class="cap">' + esc(it.t) + '</span></button>';
+        h += '<button class="img-list-row" onclick="__fn.next()"><span class="thumb">' + itemThumbHtml(it, '12px') + '</span><span class="cap">' + esc(it.t) + '</span></button>';
       });
       h += '</div>';
       return h;
     }
     h += '<div class="img-grid">';
     step.items.forEach(function(it){
-      h += '<button class="img-card" onclick="__fn.next()">' + phBox(it.img ? '/assets/'+it.img : null, step.round===false ? '18px' : '50%') + '<span class="cap">' + esc(it.t) + '</span></button>';
+      h += '<button class="img-card" onclick="__fn.next()">' + itemThumbHtml(it, step.round===false ? '18px' : '50%') + '<span class="cap">' + esc(it.t) + '</span></button>';
     });
     h += '</div>';
     return h;
@@ -678,7 +685,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         ? '<div class="emoji-thumb">' + it.emoji + '</div>'
         : it.icon
           ? iconBadge(it.icon)
-          : '<div class="thumb' + (it.round?' round':'') + '">' + '</div>';
+          : (it.img || it.imgLocal)
+            ? '<div class="thumb' + (it.round?' round':'') + '" style="overflow:hidden">' + itemThumbHtml(it, '10px') + '</div>'
+            : '<div class="thumb' + (it.round?' round':'') + '">' + '</div>';
       h += '<div class="multi-row ' + (checked?'checked':'') + '" onclick="__fn.toggleItem(' + i + ')">';
       h += thumb;
       h += '<div class="txt"><div class="t">' + esc(it.t) + '</div>' + (it.d ? '<div class="d">'+esc(it.d)+'</div>' : '') + '</div>';
