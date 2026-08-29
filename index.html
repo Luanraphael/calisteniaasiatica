@@ -94,7 +94,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .ph-img{width:100%;height:100%;overflow:hidden;background:var(--ph-bg)}
 
   /* age-select screen (step 1) */
-  .age-btns{margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;width:62%;max-width:300px;position:relative;z-index:10;margin-left:0;margin-right:auto}
+  .age-btns{margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;width:70%;max-width:300px;position:relative;z-index:10;margin-left:auto;margin-right:auto}
+  .hero-center-ph{width:60%;max-width:230px;aspect-ratio:230/300;margin:1rem auto 0}
+  .hero-center-ph .ph-img{background:transparent}
   .age-btn{background:#f5f5f5;border-radius:12px;padding:1rem 1.25rem;font-weight:600;font-size:1rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border:none;width:100%;text-align:left;transition:background .15s;min-height:56px;font-family:inherit;color:var(--text)}
   .age-btn:hover{background:#ebebeb}
   .age-btn svg{width:20px;height:20px;color:#999;flex-shrink:0}
@@ -394,7 +396,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       cta: 'Próximo passo',
       items: [
         {t:'Costas sensíveis', img:'back-D2DUI9o8.webp'}, {t:'Joelhos sensíveis', imgLocal:'/assets/joelhos-sensiveis.webp'}, {t:'Quadril sensível', img:'hip-E-F3cLZa.webp'},
-        {t:'Ombros e braços'}, {t:'Panturrilhas e tornozelos', img:'knees-ankles-WZoJdNID.webp'}, {t:'Nenhuma das opções acima'}
+        {t:'Ombros e braços', imgLocal:'/assets/ombros-bracos.png'}, {t:'Panturrilhas e tornozelos', img:'knees-ankles-WZoJdNID.webp'}, {t:'Nenhuma das opções acima', noThumb:true}
       ] },
     { type: SINGLE, q: 'Você se sente confortável ao se exercitar?',
       options: [
@@ -587,18 +589,16 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   // ---------- AGE ----------
   function renderAge(step){
     var ages = ['39 - 45','46 - 50','51 - 60','60+'];
-    var h = '<div class="age-body">';
-    h += '<div class="hero-side-ph">' + localImg('/assets/expert-step1.png') + '</div>';
-    h += '<div class="title" style="text-align:left;margin-top:1rem;width:76%;margin-left:0;margin-right:auto">';
+    var h = '<div class="title" style="text-align:center;margin-top:1rem">';
     h += '<h1>Programa de Calistenia Asiática <span class="hl">para Mulheres</span></h1>';
     h += '<p class="sub" style="margin-top:.5rem">De acordo com sua idade</p>';
     h += '<p class="eyebrow">TESTE DE 1 MINUTO</p>';
     h += '</div>';
+    h += '<div class="hero-center-ph">' + localImg('/assets/expert-step1.png') + '</div>';
     h += '<div class="age-btns">';
     ages.forEach(function(a, i){
       h += '<button class="age-btn" onclick="__fn.selectAge(' + i + ')"><span>' + a + '</span>' + chevronSvg() + '</button>';
     });
-    h += '</div>';
     h += '</div>';
     h += '<footer class="ftr"><p>Ao escolher sua idade e continuar, concorda com nossos <a href="#">Termos de Serviço</a> e reconhece nossa <a href="#">Política de Privacidade</a> e <a href="#">Política de Cookies</a></p></footer>';
     return h;
@@ -684,13 +684,15 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     }
     step.items.forEach(function(it, i){
       var checked = st.sel.has(i);
-      var thumb = it.emoji
-        ? '<div class="emoji-thumb">' + it.emoji + '</div>'
-        : it.icon
-          ? iconBadge(it.icon)
-          : (it.img || it.imgLocal)
-            ? '<div class="thumb' + (it.round?' round':'') + '" style="overflow:hidden">' + itemThumbHtml(it, '10px') + '</div>'
-            : '<div class="thumb' + (it.round?' round':'') + '">' + '</div>';
+      var thumb = it.noThumb
+        ? ''
+        : it.emoji
+          ? '<div class="emoji-thumb">' + it.emoji + '</div>'
+          : it.icon
+            ? iconBadge(it.icon)
+            : (it.img || it.imgLocal)
+              ? '<div class="thumb' + (it.round?' round':'') + '" style="overflow:hidden">' + itemThumbHtml(it, '10px') + '</div>'
+              : '<div class="thumb' + (it.round?' round':'') + '">' + '</div>';
       h += '<div class="multi-row ' + (checked?'checked':'') + '" onclick="__fn.toggleItem(' + i + ')">';
       h += thumb;
       h += '<div class="txt"><div class="t">' + esc(it.t) + '</div>' + (it.d ? '<div class="d">'+esc(it.d)+'</div>' : '') + '</div>';
