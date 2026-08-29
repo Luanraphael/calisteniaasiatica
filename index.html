@@ -119,6 +119,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .opt-btn .emoji{font-size:1.4rem;margin-right:.5rem}
 
   .icon-badge{width:44px;height:44px;border-radius:13px;background:#f4eef1;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .opt-thumb{width:48px;height:48px;border-radius:12px;overflow:hidden;flex:0 0 auto;display:block}
+  .opt-thumb .ph-img{width:100%;height:100%}
   .icon-badge svg{width:22px;height:22px;color:var(--accent)}
   .opt-card{display:flex;align-items:center;gap:.9rem;background:#fff;border:none;border-radius:16px;padding:.85rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.07);cursor:pointer;font-family:inherit;text-align:left;width:100%;margin-bottom:.75rem}
   .opt-card .t{flex:1;font-weight:700;font-size:.98rem;color:var(--text);line-height:1.35}
@@ -202,7 +204,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .loading-bar-fill{height:100%;background:var(--accent);width:0%;transition:width .2s linear}
   .loading-pct{text-align:center;font-weight:700;font-size:1.1rem;margin-bottom:1.5rem}
   .loading-cap{text-align:center;font-size:.85rem;color:var(--text-muted);margin-top:.75rem}
-  .transform-fade{position:relative;width:100%;aspect-ratio:4/2.6;border-radius:1rem;overflow:hidden;background:var(--ph-bg)}
+  .transform-fade{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:1/1;border-radius:1rem;overflow:hidden;background:var(--ph-bg)}
   .tf-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
   .tf-img.active{opacity:1}
 
@@ -638,6 +640,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       if (isObj && opt.icon){
         h += '<button class="opt-card" onclick="__fn.next()">' + iconBadge(opt.icon) +
              '<span class="t">' + esc(label) + desc + '</span>' + '<span class="chev">' + chevronSvg() + '</span></button>';
+      } else if (isObj && (opt.img || opt.imgLocal)){
+        h += '<button class="opt-card" onclick="__fn.next()"><span class="opt-thumb">' + itemThumbHtml(opt, '10px') + '</span>' +
+             '<span class="t">' + esc(label) + desc + '</span>' + '<span class="chev">' + chevronSvg() + '</span></button>';
       } else {
         var emoji = isObj && opt.emoji ? '<span class="emoji">' + opt.emoji + '</span>' : '';
         h += '<button class="opt-btn" onclick="__fn.next()">' + emoji + esc(label) + desc + '</button>';
@@ -810,22 +815,18 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     return h;
   }
   function runTransformFade(){
+    // no-op on its own now — the active photo is driven by loading progress,
+    // see updateTransformImage(pct) called from runLoadingAnimation.
+  }
+  function updateTransformImage(pct){
     var wrap = document.getElementById('transformFade');
     if (!wrap) return;
-    var imgs = Array.prototype.slice.call(wrap.querySelectorAll('.tf-img'));
-    if (imgs.length < 2) return;
-    var idx = 0;
-    var timer = setInterval(function(){
-      imgs[idx].classList.remove('active');
-      idx = (idx + 1) % imgs.length;
-      imgs[idx].classList.add('active');
-    }, 1500);
-    wrap.dataset.timer = 'x';
-    // stop the cycle once the loading step is left (next render call wipes the DOM anyway,
-    // but clear the interval so it doesn't keep firing in the background)
-    var stop = setInterval(function(){
-      if (!document.body.contains(wrap)){ clearInterval(timer); clearInterval(stop); }
-    }, 1000);
+    var imgs = wrap.querySelectorAll('.tf-img');
+    if (!imgs.length) return;
+    var idx = Math.min(imgs.length - 1, Math.floor(pct / (100 / imgs.length)));
+    for (var i = 0; i < imgs.length; i++){
+      imgs[i].classList.toggle('active', i === idx);
+    }
   }
 
   // ---------- PLAN REVEAL (step 30) ----------
@@ -1065,16 +1066,18 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var pctEl = document.getElementById('loadPct');
     if (!fill) return;
     var pct = 0;
+    updateTransformImage(pct);
     var timer = setInterval(function(){
       pct += 2;
       if (pct >= 100){
         pct = 100;
         clearInterval(timer);
-        setTimeout(function(){ goNext(); }, 400);
+        setTimeout(function(){ goNext(); }, 500);
       }
       fill.style.width = pct + '%';
       if (pctEl) pctEl.textContent = pct + '%';
-    }, 90);
+      updateTransformImage(pct);
+    }, 130);
   }
 
   // ---------- slider engine ----------
