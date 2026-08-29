@@ -1167,12 +1167,22 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     selectAge: function(i){ state.ageBand = i; goNext(); },
     toggleItem: function(i){
       var st = state.multi[state.idx];
+      var step = STEPS[state.idx];
       if (st.sel.has(i)) st.sel.delete(i); else st.sel.add(i);
+      if (step.toggle){
+        st.toggle = step.items.length > 0 && st.sel.size === step.items.length;
+      }
       render();
     },
     toggleAll: function(){
       var st = state.multi[state.idx];
+      var step = STEPS[state.idx];
       st.toggle = !st.toggle;
+      if (st.toggle){
+        step.items.forEach(function(_, i){ st.sel.add(i); });
+      } else {
+        st.sel.clear();
+      }
       render();
     },
     sliderUnit: function(u){
