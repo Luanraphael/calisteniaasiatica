@@ -98,8 +98,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .age-btn{background:#f5f5f5;border-radius:12px;padding:1rem 1.25rem;font-weight:600;font-size:1rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border:none;width:100%;text-align:left;transition:background .15s;min-height:56px;font-family:inherit;color:var(--text)}
   .age-btn:hover{background:#ebebeb}
   .age-btn svg{width:20px;height:20px;color:#999;flex-shrink:0}
-  .hero-side-ph{position:absolute;right:-120px;top:80px;width:380px;height:500px;pointer-events:none;z-index:0}
-  @media(max-width:768px){.hero-side-ph{right:-180px;top:80px;width:420px;height:560px}}
+  .hero-side-ph{position:absolute;right:-40px;top:190px;width:230px;height:300px;pointer-events:none;z-index:0}
+  .hero-side-ph .ph-img{background:transparent}
+  @media(max-width:480px){.hero-side-ph{right:-20px;top:185px;width:225px;height:295px}}
   .ftr{padding:1rem;text-align:center;font-size:.75rem;color:var(--text-muted);margin-top:auto}
   .ftr a{text-decoration:underline;color:inherit}
 
@@ -123,6 +124,13 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   /* image-grid single select */
   .img-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem}
+  .img-list{display:flex;flex-direction:column;gap:.75rem;margin-top:.5rem}
+  .img-list-row{display:flex;align-items:center;gap:.9rem;background:#fff;border:none;border-radius:16px;padding:.6rem .9rem;box-shadow:0 1px 4px rgba(0,0,0,.07);cursor:pointer;font-family:inherit;text-align:left;width:100%}
+  .img-list-row .thumb{width:56px;height:56px;border-radius:12px;overflow:hidden;flex:0 0 auto}
+  .img-list-row .thumb img{width:100%;height:100%;object-fit:cover}
+  .img-list-row .cap{font-weight:700;font-size:.98rem;color:var(--text)}
+  .expert-compose{display:flex;justify-content:center;margin:.5rem 0 1rem}
+  .expert-compose img{max-height:190px;width:auto;max-width:70%;object-fit:contain}
   .img-card{border:none;background:none;cursor:pointer;font-family:inherit;padding:0;display:flex;flex-direction:column;align-items:center;gap:.6rem}
   .img-card .ph-box,.img-card .ph-img{width:100%;aspect-ratio:1/1;border-radius:50%}
   .img-card .cap{font-weight:600;font-size:.95rem;color:var(--text)}
@@ -316,6 +324,14 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       'data-shape="' + esc(shape||'') + '" data-file="' + esc(file) + '" onerror="__imgFail(this)">' +
       '</div>';
   }
+  // local repo asset (served from this same site — no SITE_ORIGIN prefix), rendered
+  // with object-fit:contain by default so a full-body cutout never gets cropped.
+  function localImg(path, opts){
+    opts = opts || {};
+    var fit = opts.fit || 'contain';
+    var extra = opts.style || '';
+    return '<img src="' + esc(path) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:' + fit + ';display:block;' + extra + '">';
+  }
 
   // ---------- data ----------
   var MULTI = 'multi', SINGLE = 'single', IMG_SINGLE='img-single', INFO='info', PROOF='proof',
@@ -327,7 +343,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       photo: 'women-group-new-Dm6Dh7Zz.webp',
       title: 'Elas conseguiram e você também pode',
       sub: 'Mais de 27 milhões de mulheres já transformaram suas vidas com a Calistenia Asiática' },
-    { type: SINGLE, q: 'Você já experimentou exercícios de calistenia?',
+    { type: SINGLE, q: 'Você já experimentou exercícios de calistenia?', localPhoto:'/assets/expert-step3.png',
       options: ['Sim','Não'] },
     { type: INFO,
       photo: 'woman-couch-exercise-DxhhEtty.webp',
@@ -366,12 +382,12 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         {t:'Magra', img:'slim-BgG68MtM.webp'}, {t:'Falsa Magra', img:'mid-sized-C-245tK-.webp'},
         {t:'Acima do peso', img:'heavier-side-7tzmsUcd.webp'}, {t:'Sobrepeso', img:'overweight-oo35LK1h.webp'}
       ] },
-    { type: IMG_SINGLE, q: 'Qual é o corpo dos seus sonhos?',
+    { type: IMG_SINGLE, listStyle:true, q: 'Qual é o corpo dos seus sonhos?',
       items: [
         {t:'Curvado', img:'curvy-Dbj8VQuI.webp'}, {t:'Magro', img:'thin-BWWpALK0.webp'},
         {t:'Em forma', img:'bikini-body-BG5HLQ1-.webp'}, {t:'Tonificado'}, {t:'Estou bem com meu corpo', img:'satisfied-DyDvcRJX.webp'}
       ] },
-    { type: SINGLE, q: 'Há quanto tempo você estava na melhor forma da sua vida?',
+    { type: SINGLE, q: 'Há quanto tempo você estava na melhor forma da sua vida?', localPhoto:'/assets/expert-step12.png',
       options: ['1 a 2 anos atrás','3 a 5 anos atrás','Mais de 5 anos atrás','Nunca'] },
     { type: MULTI, q: 'Você tem dificuldades com algum dos seguintes itens?', sub: 'Por favor, selecione todas as opções aplicáveis',
       cta: 'Próximo passo',
@@ -397,9 +413,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       ] },
     { type: SINGLE, q: 'Como estão seus níveis de energia durante o dia?',
       options: ['Baixo, sinto-me cansada durante todo o dia','Queda pós-almoço','Arrastando antes das refeições','Alto e estável'] },
-    { type: SINGLE, q: 'Quanto de água você bebe diariamente?', photo:'woman-drinking-water-BLgcZVl1.webp',
+    { type: SINGLE, q: 'Quanto de água você bebe diariamente?', localPhoto:'/assets/expert-step22.png',
       options: ['Eu só tomo café ou chá','Cerca de 2 copos (0,5 L)','2 a 6 copos (0,5–1,5 L)','Mais de 6 copos'] },
-    { type: SINGLE, q: 'Quantas horas você costuma dormir?', photo:'woman-sleeping-DwdH-tAw.webp',
+    { type: SINGLE, q: 'Quantas horas você costuma dormir?', localPhoto:'/assets/expert-step23.png',
       options: ['Menos de 5 horas','5-6 horas','7-8 horas','Mais de 8 horas'] },
     { type: MULTI, q: 'Quais são suas preferências de refeição?', cta:'Continuar',
       items: [
@@ -570,7 +586,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   // ---------- AGE ----------
   function renderAge(step){
     var ages = ['39 - 45','46 - 50','51 - 60','60+'];
-    var h = '<div class="title" style="text-align:center;margin-top:1rem">';
+    var h = '<div class="hero-side-ph">' + localImg('/assets/expert-step1.png') + '</div>';
+    h += '<div class="title" style="text-align:center;margin-top:1rem">';
     h += '<h1>Programa de Calistenia Asiática <span class="hl">para Mulheres</span></h1>';
     h += '<p class="sub" style="margin-top:.5rem">De acordo com sua idade</p>';
     h += '<p class="eyebrow">TESTE DE 1 MINUTO</p>';
@@ -580,7 +597,6 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       h += '<button class="age-btn" onclick="__fn.selectAge(' + i + ')"><span>' + a + '</span>' + chevronSvg() + '</button>';
     });
     h += '</div>';
-    h += '<div class="hero-side-ph">' + phBox('/images/asian-woman-fitness.webp') + '</div>';
     h += '<footer class="ftr"><p>Ao escolher sua idade e continuar, concorda com nossos <a href="#">Termos de Serviço</a> e reconhece nossa <a href="#">Política de Privacidade</a> e <a href="#">Política de Cookies</a></p></footer>';
     return h;
   }
@@ -609,6 +625,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var q = step.dateQ ? ('Quão confiante você está em entrar em forma até o dia ' + targetDateStr() + '?') : step.q;
     var h = '<h1>' + esc(q) + '</h1>';
     if (step.photo) h += '<div class="top-photo" style="aspect-ratio:16/10;margin:1rem 0">' + phBox('/assets/' + step.photo) + '</div>';
+    if (step.localPhoto) h += '<div class="expert-compose">' + localImg(step.localPhoto) + '</div>';
     h += '<div class="opt-list">';
     step.options.forEach(function(opt, i){
       var isObj = typeof opt === 'object';
@@ -629,6 +646,14 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   // ---------- IMG_SINGLE ----------
   function renderImgSingle(step){
     var h = '<h1>' + esc(step.q) + '</h1>';
+    if (step.listStyle){
+      h += '<div class="img-list">';
+      step.items.forEach(function(it){
+        h += '<button class="img-list-row" onclick="__fn.next()"><span class="thumb">' + phBox(it.img ? '/assets/'+it.img : null, '12px') + '</span><span class="cap">' + esc(it.t) + '</span></button>';
+      });
+      h += '</div>';
+      return h;
+    }
     h += '<div class="img-grid">';
     step.items.forEach(function(it){
       h += '<button class="img-card" onclick="__fn.next()">' + phBox(it.img ? '/assets/'+it.img : null, step.round===false ? '18px' : '50%') + '<span class="cap">' + esc(it.t) + '</span></button>';
@@ -1154,6 +1179,13 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     if (step.type === 'video-final') startVslTimer();
   }
 
+  try {
+    var __qsStep = new URLSearchParams(window.location.search).get('step');
+    if (__qsStep !== null){
+      var n = parseInt(__qsStep, 10);
+      if (!isNaN(n) && n >= 0 && n < STEPS.length) state.idx = n;
+    }
+  } catch(e){}
   render();
 })();
 </script>
