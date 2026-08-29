@@ -85,6 +85,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   h1 .hl{color:var(--accent)}
   .sub{text-align:center;color:var(--text-muted);font-size:1rem;line-height:1.5;margin:0 0 1.5rem}
   .eyebrow{text-align:center;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:.6rem 0 0;color:var(--text)}
+  .age-question{font-weight:700;color:var(--text);font-size:1.2rem;margin:.5rem 0 0 !important}
 
   /* generic placeholder box (used for hero photos) */
   .ph-box{background:var(--ph-bg);border-radius:1.1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--ph-text);text-align:center;padding:1rem;width:100%;height:100%}
@@ -94,8 +95,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .ph-img{width:100%;height:100%;overflow:hidden;background:var(--ph-bg)}
 
   /* age-select screen (step 1) */
-  .age-btns{margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;width:70%;max-width:300px;position:relative;z-index:10;margin-left:auto;margin-right:auto}
-  .hero-center-ph{width:60%;max-width:230px;aspect-ratio:230/300;margin:1rem auto 0}
+  .age-btns{margin-top:.4rem;display:flex;flex-direction:column;gap:.5rem;width:70%;max-width:300px;position:relative;z-index:10;margin-left:auto;margin-right:auto}
+  .hero-center-ph{width:34%;max-width:130px;aspect-ratio:130/175;margin:.15rem auto 0}
   .hero-center-ph .ph-img{background:transparent}
   .age-btn{background:#f5f5f5;border-radius:12px;padding:1rem 1.25rem;font-weight:600;font-size:1rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border:none;width:100%;text-align:left;transition:background .15s;min-height:56px;font-family:inherit;color:var(--text)}
   .age-btn:hover{background:#ebebeb}
@@ -589,10 +590,10 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   // ---------- AGE ----------
   function renderAge(step){
     var ages = ['39 - 45','46 - 50','51 - 60','60+'];
-    var h = '<div class="title" style="text-align:center;margin-top:1rem">';
+    var h = '<div class="title" style="text-align:center;margin-top:.5rem">';
     h += '<h1>Programa de Calistenia Asiática <span class="hl">para Mulheres</span></h1>';
-    h += '<p class="sub" style="margin-top:.5rem">De acordo com sua idade</p>';
-    h += '<p class="eyebrow">TESTE DE 1 MINUTO</p>';
+    h += '<p class="eyebrow" style="margin-top:.6rem">TESTE DE 1 MINUTO</p>';
+    h += '<p class="sub age-question">Quantos anos você tem?</p>';
     h += '</div>';
     h += '<div class="hero-center-ph">' + localImg('/assets/expert-step1.png') + '</div>';
     h += '<div class="age-btns">';
@@ -786,7 +787,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     h += '</svg>';
 
     var pStart = pct(start), pGood = pct(goodEnd), pBad = pct(badEnd);
-    h += '<span class="chart-pill you" style="left:' + pStart.l + ';top:0;transform:translate(-6%,0)">Você</span>';
+    h += '<span class="chart-pill you" style="left:' + pStart.l + ';top:0;transform:translate(-50%,0)">Você</span>';
     h += '<span class="chart-pill good" style="left:' + pGood.l + ';top:' + pGood.t + ';transform:translate(-72%,-135%)">Com Calistenia Asiática</span>';
     h += '<span class="chart-pill bad" style="left:' + pBad.l + ';top:' + pBad.t + ';transform:translate(-68%,40%)">Sem mudanças</span>';
     h += '</div>';
