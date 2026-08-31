@@ -447,12 +447,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     { type: CHART },
     { type: LOADING },
     { type: 'plan-reveal', noProgress:true, days:21 },
-    { type: 'imc-profile', noProgress:true, bmi:26.8,
-      rows:[
-        {ic:'📊', t:'Estilo de vida', v:'Sedentário'},
-        {ic:'🏃', t:'Nível de condicionamento', v:'Iniciante'},
-        {ic:'🔥', t:'Metabolismo', v:'Em resistência, difícil queimar gordura'}
-      ] },
+    { type: 'imc-profile', noProgress:true },
     { type: SINGLE, noProgress:true, q:'Qual é o seu principal motivo para transformar o seu corpo?',
       options:[
         {t:'Me sentir mais confiante com o meu corpo.', icon:'sparkles'},
@@ -847,22 +842,35 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   // ---------- IMC PROFILE (step 31) ----------
   function renderImcProfile(step){
-    var bmi = step.bmi;
+    var b = bmiText();
+    var bmi = parseFloat(b.bmi);
     var pct = Math.min(100, Math.max(0, ((bmi - 15) / (40 - 15)) * 100));
-    var cat = bmi < 18.5 ? 'ABAIXO DO PESO' : bmi < 25 ? 'NORMAL' : bmi < 30 ? 'SOBREPESO' : 'OBESO';
+    var labels = ['Abaixo do peso', 'Normal', 'Sobrepeso', 'Obeso'];
+    var activeIdx = b.cls === 'abaixo do peso' ? 0 : b.cls === 'peso normal' ? 1 : b.cls === 'sobrepeso' ? 2 : 3;
+    var lifestyle = bmi < 25 ? 'Ativa' : bmi < 30 ? 'Moderadamente ativa' : 'Sedentário';
+    var fitnessLvl = bmi < 25 ? 'Intermediário' : 'Iniciante';
+    var metabolism = bmi < 25 ? 'Equilibrado' : bmi < 30 ? 'Desacelerando' : 'Em resistência, difícil queimar gordura';
+    var alertMsg = bmi < 25
+      ? 'Seu metabolismo está numa boa faixa, mas pequenos hábitos ainda travam sua energia diária. O segredo para destravar de vez é a ativação rítmica das fibras profundas, sem o esforço exaustivo da academia.'
+      : 'Seu metabolismo entrou em modo de resistência. O excesso de peso está sobrecarregando suas articulações e travando sua energia diária. O segredo para voltar a secar é a ativação rítmica das fibras profundas, que derrete a gordura mais difícil sem o esforço exaustivo da academia.';
+    var rows = step.rows && step.rows.length ? step.rows : [
+      {ic:'📊', t:'Estilo de vida', v:lifestyle},
+      {ic:'🏃', t:'Nível de condicionamento', v:fitnessLvl},
+      {ic:'🔥', t:'Metabolismo', v:metabolism}
+    ];
     var h = '<h1>Seu perfil está pronto</h1>';
     h += '<div class="imc-card">';
     h += '<div class="imc-title">Índice de Massa Corporal (IMC)</div>';
     h += '<div class="imc-scale-wrap">';
-    h += '<span class="imc-badge" style="left:' + pct + '%">Você - ' + bmi + '</span>';
+    h += '<span class="imc-badge" style="left:' + pct + '%">Você - ' + b.bmi + '</span>';
     h += '<div class="imc-bar"><div class="imc-dot" style="left:' + pct + '%"></div></div>';
     h += '</div>';
     h += '<div class="imc-nums"><span>15</span><span>18,5</span><span>25</span><span>30</span><span>40</span></div>';
-    h += '<div class="imc-labels"><span>Abaixo do peso</span><span>Normal</span><span class="active">Sobrepeso</span><span>Obeso</span></div>';
+    h += '<div class="imc-labels">' + labels.map(function(l, i){ return '<span' + (i===activeIdx?' class="active"':'') + '>' + l + '</span>'; }).join('') + '</div>';
     h += '</div>';
-    h += '<div class="alert-box"><div class="at">⚠️ Alerta de Bloqueio:</div><div class="ad">Seu metabolismo entrou em modo de resistência. O excesso de peso está sobrecarregando suas articulações e travando sua energia diária. O segredo para voltar a secar é a ativação rítmica das fibras profundas, que derrete a gordura mais difícil sem o esforço exaustivo da academia.</div></div>';
+    h += '<div class="alert-box"><div class="at">⚠️ Alerta de Bloqueio:</div><div class="ad">' + alertMsg + '</div></div>';
     h += '<div class="imc-card">';
-    step.rows.forEach(function(r){
+    rows.forEach(function(r){
       h += '<div class="info-row"><span class="ic">' + r.ic + '</span><span><div class="rt">' + esc(r.t) + '</div><div class="rv">' + esc(r.v) + '</div></span></div>';
     });
     h += '</div>';
