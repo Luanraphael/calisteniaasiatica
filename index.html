@@ -871,12 +871,13 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   // ---------- PLAN READY (step 34) ----------
   function renderPlanReady(step){
+    var nowPhoto = bmiText().cls === 'obesidade' ? '/assets/obesa.webp' : '/assets/acima-do-peso-CtIe9m6Q.webp';
     var h = '<h1>Seu plano de Calistenia Asiática Atlas está <span class="hl">Quase</span> pronto!</h1>';
     h += '<div class="plan-card">';
     h += '<div class="plan-photos">';
-    h += '<div class="col"><div class="cap">Agora</div>' + phBox('/assets/acima-do-peso-CtIe9m6Q.webp') + '</div>';
+    h += '<div class="col"><div class="cap">Agora</div><div class="ph-img">' + localImg(nowPhoto, {fit:'cover'}) + '</div></div>';
     h += '<div class="arrows">›&nbsp;›&nbsp;›</div>';
-    h += '<div class="col"><div class="cap">Seu objetivo</div>' + phBox('/assets/em-forma-OQmnrtKV.webp') + '</div>';
+    h += '<div class="col"><div class="cap">Seu objetivo</div><div class="ph-img">' + localImg('/assets/em-forma-OQmnrtKV.webp', {fit:'cover'}) + '</div></div>';
     h += '</div>';
     h += '<div class="plan-stats">';
     h += '<div class="col"><div class="k">Peso atual</div><div class="v">' + state.weightKg + ' kg</div>';
