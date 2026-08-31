@@ -731,6 +731,11 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       captionHtml: '<div class="info-box"><span class="info-icon">i</span><span class="itxt"><div class="t">Calculando seu IMC</div></span></div>' });
   }
 
+  var BMI_COLORS = { 'peso normal': '#2fa84f', 'sobrepeso': '#d6a300', 'obesidade': '#d0483f' };
+  function bmiClsHtml(cls){
+    var color = BMI_COLORS[cls];
+    return color ? '<span style="color:' + color + ';font-weight:700">' + cls + '</span>' : cls;
+  }
   function bmiText(){
     var h = state.heightCm / 100;
     var bmi = state.weightKg / (h*h);
@@ -744,7 +749,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var cap = '';
     if (!isTarget){
       var b = bmiText();
-      cap = '<div class="info-box"><span class="info-icon">i</span><span class="itxt"><div class="t">Seu IMC é ' + b.bmi + ', que é considerado ' + b.cls + '.</div><div class="d">Mantenha-se positivo e concentre-se em uma dieta equilibrada e exercícios.</div></span></div>';
+      cap = '<div class="info-box"><span class="info-icon">i</span><span class="itxt"><div class="t">Seu IMC é ' + b.bmi + ', que é considerado ' + bmiClsHtml(b.cls) + '.</div><div class="d">Mantenha-se positivo e concentre-se em uma dieta equilibrada e exercícios.</div></span></div>';
     }
     return sliderHTML({ q: isTarget ? 'Qual é o seu peso alvo?' : 'Qual é o seu peso agora?', a:'kg', b:'Libra',
       activeA: state.weightUnit==='kg', val: val, unit: state.weightUnit, captionHtml: cap });
@@ -1115,7 +1120,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     if (step.type === SLIDER_W && !step.target){
       var b = bmiText();
       var t = document.querySelector('.info-box .t');
-      if (t) t.textContent = 'Seu IMC é ' + b.bmi + ', que é considerado ' + b.cls + '.';
+      if (t) t.innerHTML = 'Seu IMC é ' + b.bmi + ', que é considerado ' + bmiClsHtml(b.cls) + '.';
     }
   }
 
