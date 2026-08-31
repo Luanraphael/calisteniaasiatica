@@ -446,7 +446,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       body: 'Não sabe por onde começar? Nós já planejamos tudo. Não tem certeza de que pode fazer isso? Estamos prontos para motivá-la e apoiá-la!' },
     { type: CHART },
     { type: LOADING },
-    { type: 'plan-reveal', noProgress:true, startKg:73, endKg:57, days:21 },
+    { type: 'plan-reveal', noProgress:true, days:21 },
     { type: 'imc-profile', noProgress:true, bmi:26.8,
       rows:[
         {ic:'📊', t:'Estilo de vida', v:'Sedentário'},
@@ -806,9 +806,10 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   // ---------- PLAN REVEAL (step 30) ----------
   function renderPlanReveal(step){
+    var startKg = state.weightKg, endKg = state.targetKg;
     var h = '<h1>O último plano que você precisará para ficar em forma</h1>';
     h += '<p class="sub">Prevemos que você estará com</p>';
-    h += '<p style="text-align:center;margin:.25rem 0 1rem"><span class="kg-hl">' + step.endKg + 'kg</span> <b>em até ' + step.days + ' dias</b></p>';
+    h += '<p style="text-align:center;margin:.25rem 0 1rem"><span class="kg-hl">' + endKg + 'kg</span> <b>em até ' + step.days + ' dias</b></p>';
     var DW = 420, DH = 175;
     var p0 = {x:22, y:35}, p1 = {x:150, y:110}, p2 = {x:270, y:130}, p3 = {x:398, y:134};
     function bez(t){
@@ -834,9 +835,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     h += '<circle cx="' + p3.x + '" cy="' + p3.y + '" r="5" fill="#3fa66a"/>';
     h += '</svg>';
     var pS = dpct(p0), pM = dpct(mid), pE = dpct(p3);
-    h += '<span class="decline-badge start" style="position:absolute;left:' + pS.l + ';top:' + pS.t + ';transform:translate(-8%,-150%)">' + step.startKg + 'kg</span>';
+    h += '<span class="decline-badge start" style="position:absolute;left:' + pS.l + ';top:' + pS.t + ';transform:translate(-8%,-150%)">' + startKg + 'kg</span>';
     h += '<span class="decline-mid" style="position:absolute;left:' + pM.l + ';top:' + pM.t + ';transform:translate(-50%,-160%)">Semana 2</span>';
-    h += '<span class="decline-badge end" style="position:absolute;left:' + pE.l + ';top:' + pE.t + ';transform:translate(-92%,-150%)">' + step.endKg + 'kg</span>';
+    h += '<span class="decline-badge end" style="position:absolute;left:' + pE.l + ';top:' + pE.t + ';transform:translate(-92%,-150%)">' + endKg + 'kg</span>';
     h += '</div>';
     h += '<h1 style="color:var(--accent);font-size:1.3rem">Protocolo de ' + step.days + ' dias quase pronto!</h1>';
     h += '<p class="sub">De acordo com as suas respostas, você está pronta para ter resultados em ' + step.days + ' dias com o nosso programa.</p>';
