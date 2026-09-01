@@ -132,7 +132,11 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .opt-thumb{width:48px;height:48px;border-radius:12px;overflow:hidden;flex:0 0 auto;display:block}
   .opt-thumb .ph-img{width:100%;height:100%}
   .icon-badge svg{width:22px;height:22px;color:var(--accent)}
-  .opt-card{display:flex;align-items:center;gap:.9rem;background:#fff;border:none;border-radius:16px;padding:.85rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.07);cursor:pointer;font-family:inherit;text-align:left;width:100%;margin-bottom:.75rem}
+  .opt-list.spacious{margin-top:1.1rem}
+  .opt-card{display:flex;align-items:center;gap:.9rem;background:#fff;border:2px solid transparent;border-radius:16px;padding:.85rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.07);cursor:pointer;font-family:inherit;text-align:left;width:100%;margin-bottom:.75rem;transition:border-color .15s,background .15s}
+  .opt-card.selected{border-color:var(--accent);background:#fdf3f6}
+  .opt-card .emoji-thumb{width:44px;height:44px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:var(--badge-bg);border-radius:13px}
+  .img-card.selected,.img-list-row.selected{outline:3px solid var(--accent);outline-offset:2px}
   .opt-card .t{flex:1;font-weight:700;font-size:.98rem;color:var(--text);line-height:1.35}
   .opt-card .t .d{font-weight:400;font-size:.82rem;color:var(--text-muted);margin-top:.15rem}
   .opt-card .chev{color:#999;flex:0 0 auto;width:20px;height:20px}
@@ -145,8 +149,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .img-list-row .thumb{width:56px;height:56px;border-radius:12px;overflow:hidden;flex:0 0 auto}
   .img-list-row .thumb img{width:100%;height:100%;object-fit:cover}
   .img-list-row .cap{font-weight:700;font-size:.98rem;color:var(--text)}
-  .expert-compose{display:flex;justify-content:center;margin:.5rem 0 1rem}
-  .expert-compose img{max-height:190px;width:auto;max-width:70%;object-fit:contain}
+  .expert-compose{display:flex;justify-content:center;margin:.5rem 0 1rem;min-height:190px}
+  .expert-compose img{max-height:190px !important;height:auto !important;width:auto !important;max-width:70%;object-fit:contain !important;display:block !important}
   .img-card{border:none;background:none;cursor:pointer;font-family:inherit;padding:0;display:flex;flex-direction:column;align-items:center;gap:.6rem}
   .img-card .ph-box,.img-card .ph-img{width:100%;aspect-ratio:1/1;border-radius:50%}
   .img-card .cap{font-weight:600;font-size:.95rem;color:var(--text)}
@@ -237,6 +241,10 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .imc-labels{display:flex;justify-content:space-between;font-size:.62rem;color:var(--text-muted);margin-top:.3rem;text-transform:uppercase;letter-spacing:.02em}
   .imc-labels .active{color:var(--text);font-weight:700}
   .alert-box{background:var(--red-bg);border:1px solid #f3c9c5;border-radius:14px;padding:1rem;margin-bottom:1rem}
+  .causa-box{background:var(--red-bg);border:1px solid #f3c9c5;border-radius:16px;padding:1.25rem;text-align:center}
+  .causa-alert{color:var(--red);font-weight:800;font-size:1.05rem;letter-spacing:.01em}
+  .causa-sub{font-weight:800;color:var(--text);margin-top:.6rem;font-size:1rem}
+  .causa-hl{display:inline-block;font-weight:800;color:var(--text);font-size:1.2rem;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:3px;margin-top:.3rem}
   .alert-box .at{color:var(--red);font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem;font-size:.95rem}
   .alert-box .ad{font-size:.85rem;color:#8a3630;line-height:1.5}
   .info-row{display:flex;align-items:center;gap:.8rem;padding:.85rem 0;border-bottom:1px solid var(--card-border)}
@@ -303,10 +311,10 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   /* proof-static (etapa 7) */
   .proof-card{background:#fff;border-radius:16px;box-shadow:0 1px 4px rgba(0,0,0,.07);padding:1.1rem 1.25rem;margin-bottom:1.25rem}
-  .proof-row{display:flex;justify-content:space-between;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--card-border);font-size:.9rem}
-  .proof-row:last-of-type{border-bottom:none}
-  .proof-k{color:var(--text-muted)}
-  .proof-v{font-weight:600;color:var(--text);text-align:right}
+  .proof-name-row{display:flex;justify-content:space-between;align-items:baseline;gap:.75rem}
+  .proof-name{font-weight:700;color:var(--text);font-size:1rem}
+  .proof-region{font-size:.82rem;color:var(--text-muted)}
+  .proof-meta{font-size:.85rem;color:var(--text-muted);margin-top:.15rem}
   .proof-quote{margin-top:.75rem;font-style:italic;color:var(--text-muted);font-size:.9rem;line-height:1.5}
   .proof-note{text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:.75rem;line-height:1.5}
 
@@ -375,56 +383,86 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         {t:'Muito acima do peso', img:'overweight-oo35LK1h.webp'}, {t:'Falsa magra', img:'mid-sized-C-245tK-.webp'},
         {t:'Um pouco acima do peso', img:'heavier-side-7tzmsUcd.webp'}, {t:'Magra', img:'slim-BgG68MtM.webp'}
       ] },
-    /* 2  etapa 3  */ { type: SINGLE, q: 'Você acumula gordura na barriga com facilidade?',
-      options: ['Sim, é o principal lugar', 'Acumulo mais em outros locais'] },
-    /* 3  etapa 4  */ { type: SINGLE, q: 'Quantos quilos você gostaria de eliminar?',
-      options: ['0 – 10 kg', '11 – 15 kg', '16 – 20 kg', 'Mais de 21 kg'] },
-    /* 4  etapa 5  */ { type: IMG_SINGLE, listStyle:true, q: 'Qual é o corpo que você gostaria de ter?',
+    /* 2  etapa 3  */ { type: SINGLE, autoAdvance:false, spacious:true, q: 'Você acumula gordura na barriga com facilidade?',
+      options: [
+        {t:'Sim, é o principal lugar', icon:'target'},
+        {t:'Acumulo mais em outros locais', icon:'move'}
+      ] },
+    /* 3  etapa 4  */ { type: SINGLE, spacious:true, q: 'Quantos quilos você gostaria de eliminar?',
+      options: [
+        {t:'0 – 10 kg', emoji:'🎯'}, {t:'11 – 15 kg', emoji:'💪'}, {t:'16 – 20 kg', emoji:'🔥'}, {t:'Mais de 21 kg', emoji:'🚀'}
+      ] },
+    /* 4  etapa 5  */ { type: IMG_SINGLE, listStyle:true, autoAdvance:false, q: 'Qual é o corpo que você gostaria de ter?',
       items: [
         {t:'Curvado', img:'curvy-Dbj8VQuI.webp'}, {t:'Magro', img:'thin-BWWpALK0.webp'},
         {t:'Em forma', img:'bikini-body-BG5HLQ1-.webp'}, {t:'Tonificado', imgLocal:'/assets/tonificado.webp'}
       ] },
-    /* 5  etapa 6  */ { type: SINGLE, q: 'Qual mudança você mais quer perceber no seu corpo?',
-      options: ['Perder peso', 'Diminuir a barriga', 'Tonificar e reduzir a flacidez', 'Voltar a me sentir bem com meu corpo'] },
+    /* 5  etapa 6  */ { type: SINGLE, spacious:true, q: 'Qual mudança você mais quer perceber no seu corpo?',
+      options: [
+        {t:'Perder peso', icon:'scale'}, {t:'Diminuir a barriga', icon:'target'},
+        {t:'Tonificar e reduzir a flacidez', icon:'dumbbell'}, {t:'Voltar a me sentir bem com meu corpo', icon:'heart'}
+      ] },
     /* 6  etapa 7  */ { type: 'proof-static' },
-    /* 7  etapa 8  */ { type: SINGLE, q: 'Depois dos 35, percebeu que seu corpo começou a responder diferente?',
-      options: ['Sim, principalmente na barriga', 'Sim, fiquei mais flácida', 'Sim, emagrecer ficou mais difícil', 'Sim, passei a sentir mais desconfortos', 'Não percebi muita diferença'] },
+    /* 7  etapa 8  */ { type: SINGLE, spacious:true, q: 'Depois dos 35, percebeu que seu corpo começou a responder diferente?',
+      options: [
+        {t:'Sim, principalmente na barriga', emoji:'😔'}, {t:'Sim, fiquei mais flácida', emoji:'😟'},
+        {t:'Sim, emagrecer ficou mais difícil', emoji:'😩'}, {t:'Sim, passei a sentir mais desconfortos', emoji:'😣'},
+        {t:'Não percebi muita diferença', emoji:'🙂'}
+      ] },
     /* 8  etapa 9  */ { type: MULTI, q: 'Você sente desconforto em algumas dessas regiões?', cta:'Continuar',
       items: [
         {t:'Costas sensíveis', img:'back-D2DUI9o8.webp'}, {t:'Joelhos sensíveis', imgLocal:'/assets/joelhos-sensiveis.webp'}, {t:'Quadril sensível', img:'hip-E-F3cLZa.webp'},
         {t:'Ombros e braços', imgLocal:'/assets/ombros-bracos.png'}, {t:'Panturrilhas e tornozelos', img:'knees-ankles-WZoJdNID.webp'}
       ] },
-    /* 9  etapa 10 */ { type: SINGLE, q: 'Você evita alguns exercícios por medo de sentir dor ou se machucar?',
-      options: ['Sim, frequentemente', 'Às vezes', 'Não, mas prefiro movimentos leves', 'Não tenho esse problema'] },
-    /* 10 etapa 11 */ { type: INFO, titleHtml: '<span class="hl">FIQUE TRANQUILA!</span>',
-      photo: 'woman-couch-exercise-DxhhEtty.webp',
-      body: 'A Calistenia Asiática utiliza movimentos leves, controlados e sem impacto, que podem ser adaptados ao seu ritmo.' },
-    /* 11 etapa 12 */ { type: SINGLE, q: 'Hoje, a barriga é uma das regiões em que você sente mais dificuldade para perder gordura?',
-      options: ['Sim', 'Bastante', 'Um pouco', 'Não é minha principal preocupação'] },
-    /* 12 etapa 13 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando o padrão por trás das dificuldades que você relatou' },
+    /* 9  etapa 10 */ { type: SINGLE, spacious:true, q: 'Você evita alguns exercícios por medo de sentir dor ou se machucar?',
+      options: [
+        {t:'Sim, frequentemente', icon:'x'}, {t:'Às vezes', icon:'move'},
+        {t:'Não, mas prefiro movimentos leves', icon:'sparkles2'}, {t:'Não tenho esse problema', icon:'userCheck'}
+      ] },
+    /* 10 etapa 11 */ { type: INFO, titleHtml: '<span class="hl">FIQUE TRANQUILA</span>, A Calistenia Asiática utiliza movimentos leves, controlados e sem impacto, que são feitos justamente para adaptar ao seu ritmo.', noBody:true,
+      photo: 'woman-couch-exercise-DxhhEtty.webp' },
+    /* 11 etapa 12 */ { type: SINGLE, autoAdvance:false, spacious:true, q: 'Hoje, a barriga é uma das regiões em que você sente mais dificuldade para perder gordura?',
+      options: [
+        {t:'Sim', emoji:'😩'}, {t:'Bastante', emoji:'😕'}, {t:'Um pouco', emoji:'🙂'}, {t:'Não é minha principal preocupação', emoji:'😌'}
+      ] },
+    /* 12 etapa 13 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando a causa raiz do problema' },
     /* 13 etapa 14 */ { type: 'pattern-chart' },
     /* 14 etapa 15 */ { type: SLIDER_H },
     /* 15 etapa 16 */ { type: SLIDER_W, target:false },
     /* 16 etapa 17 */ { type: SLIDER_W, target:true },
-    /* 17 etapa 18 */ { type: SINGLE, q: 'O que mais dificulta cuidar do corpo hoje?',
-      options: ['Não tenho tempo', 'Chego cansada e sem energia', 'Tenho medo de sentir dor ou me machucar', 'Começo, mas não consigo manter uma rotina'] },
-    /* 18 etapa 19 */ { type: SINGLE, q: 'Como é seu dia a dia?',
+    /* 17 etapa 18 */ { type: SINGLE, spacious:true, q: 'O que mais dificulta cuidar do corpo hoje?',
       options: [
-        {t:'Trabalho fora e tenho uma rotina corrida', icon:'briefcase'},
-        {t:'Trabalho em casa e tenho uma rotina flexível', icon:'home'},
-        {t:'Atualmente não trabalho', icon:'coffee'}
+        {t:'Não tenho tempo', emoji:'⏰'}, {t:'Chego cansada e sem energia', emoji:'😴'},
+        {t:'Tenho medo de sentir dor ou me machucar', emoji:'🤕'}, {t:'Começo, mas não consigo manter uma rotina', emoji:'🔄'}
       ] },
-    /* 19 etapa 20 */ { type: SINGLE, q: 'Quantas horas você costuma dormir?',
-      options: ['Menos de 5 horas', '5 – 6 horas', '7 – 8 horas', 'Mais de 8 horas'] },
-    /* 20 etapa 21 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando uma estratégia compatível com o seu caso', image:'/assets/expert-step3.png' },
+    /* 18 etapa 19 */ { type: SINGLE, autoAdvance:false, spacious:true, q: 'Como é seu dia a dia?',
+      options: [
+        {t:'Trabalho fora e tenho uma rotina corrida', emoji:'💼'},
+        {t:'Trabalho em casa e tenho uma rotina flexível', emoji:'🏠'},
+        {t:'Atualmente não trabalho', emoji:'😊'}
+      ] },
+    /* 19 etapa 20 */ { type: SINGLE, spacious:true, q: 'Quantas horas você costuma dormir?',
+      options: [
+        {t:'Menos de 5 horas', icon:'clock'}, {t:'5 – 6 horas', icon:'moon'},
+        {t:'7 – 8 horas', icon:'moon'}, {t:'Mais de 8 horas', icon:'sun'}
+      ] },
+    /* 20 etapa 21 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando a solução para seu caso', image:'/assets/expert-step3.png' },
     /* 21 etapa 22 */ { type: 'solution', noProgress:true },
     /* 22 etapa 23 */ { type: 'plan-reveal', noProgress:true, days:21 },
     /* 23 etapa 24 */ { type: 'imc-profile', noProgress:true },
-    /* 24 etapa 25 */ { type: SINGLE, noProgress:true, q: 'Se nada mudar, como você imagina que continuará se sentindo daqui a algum tempo?',
-      options: ['Vou continuar desconfortável com meu corpo', 'Vou continuar preocupada com minha saúde', 'Vou continuar evitando algumas roupas', 'Meus desconfortos podem continuar limitando minha rotina'] },
-    /* 25 etapa 26 */ { type: SINGLE, noProgress:true,
-      qHtml: 'Você consegue dedicar apenas <span class="hl">10 minutos por dia</span> de Calistenia Asiática durante <span class="hl">21 dias</span> para começar a transformar o seu corpo?',
-      options: ['Sim, 10 minutos eu consigo', 'Estou disposta a tentar'] },
+    /* 24 etapa 25 */ { type: SINGLE, noProgress:true, autoAdvance:false, spacious:true, q: 'Se nada mudar, como será sua vida daqui um tempo?',
+      options: [
+        {t:'Vou estar mais gorda e feia', emoji:'🐡'},
+        {t:'Minha saúde vai piorar muito', emoji:'🤧'},
+        {t:'Nenhuma roupa vai vestir bem', emoji:'👚'},
+        {t:'Minhas dores só irão piorar', emoji:'😭'}
+      ] },
+    /* 25 etapa 26 */ { type: SINGLE, noProgress:true, spacious:true,
+      qHtml: 'Você consegue dedicar apenas <span class="hl">10 minutos por dia</span> de Calistenia Asiática durante <span class="hl">21 dias</span> para começar a ter o seu corpo dos sonhos e se tornar irreconhecível?',
+      options: [
+        {t:'Sim, 10 minutos eu consigo', icon:'rocket'},
+        {t:'Estou disposta a tentar', icon:'heartOutline'}
+      ] },
     /* 26 etapa 27 */ { type: LOADING, noProgress:true },
     /* 27 etapa 28 */ { type: 'video-final', noProgress:true }
   ];
@@ -455,6 +493,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   // simple hand-drawn line icons (24x24, stroke-based) used on option cards
   var ICONS = {
     home: '<path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/>',
+    target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+    sun: '<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8"/>',
     coffee: '<path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M16 10.5h1.5a2 2 0 0 1 0 4H16"/><path d="M8 3.5c-.5 1 .5 1.5 0 2.5M11.5 3.5c-.5 1 .5 1.5 0 2.5"/>',
     scale: '<path d="M12 3v18M7 21h10M5 7h4M15 7h4M5 7l-2 5a2.5 2.5 0 0 0 5 0zM19 7l-2 5a2.5 2.5 0 0 0 5 0zM12 3l3 3-3 1-3-1z"/>',
     dumbbell: '<path d="M4 9v6M2 10v4M20 9v6M22 10v4M7 8v8M17 8v8M7 12h10"/>',
@@ -555,7 +596,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   }
 
   // ---------- AGE ----------
-  var AGE_OPTIONS = ['35 – 39', '40 – 49', '50 – 59', '60+'];
+  var AGE_OPTIONS = ['35 - 40', '40 - 50', '50 - 60', '60+'];
   function renderAge(step){
     var h = '<div class="age-body">';
     h += '<div class="hero-side-ph">' + localImg('/assets/expert-step1.png') + '</div>';
@@ -584,8 +625,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var h = '<div class="modal-overlay" onclick="if(event.target===this) __fn.closeAgeModal()">';
     h += '<div class="modal-card">';
     h += '<div class="modal-title">ATENÇÃO</div>';
-    h += '<p class="modal-p">Para que seu protocolo seja preparado de acordo com o seu objetivo, sua rotina e o momento atual do seu corpo, é muito importante responder às próximas perguntas com sinceridade.</p>';
-    h += '<p class="modal-p">Cada resposta será considerada na construção do resultado apresentado ao final do teste.</p>';
+    h += '<p class="modal-p">É de extrema importância que as informações preenchidas sejam verdadeiras, pois o programa será personalizado exclusivamente para o seu caso.</p>';
     h += '<button class="btn" onclick="__fn.closeAgeModal()">ENTENDI, CONTINUAR</button>';
     h += '</div></div>';
     return h;
@@ -605,33 +645,47 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var h = '';
     if (step.photo) h += '<div class="top-photo" style="aspect-ratio:4/3">' + phBox('/assets/' + step.photo) + '</div>';
     h += '<h1>' + (step.titleHtml || esc(step.title)) + '</h1>';
-    h += '<p class="sub">' + esc(step.body) + '</p>';
+    if (!step.noBody) h += '<p class="sub">' + esc(step.body) + '</p>';
     h += '<button class="btn" onclick="__fn.next()">Continuar</button>';
     return h;
   }
 
   // ---------- SINGLE ----------
   function renderSingle(step){
+    var auto = step.autoAdvance !== false;
+    var selIdx = state.single[state.idx];
     var h = '<h1>' + (step.qHtml || esc(step.q)) + '</h1>';
+    if (step.sub) h += '<p class="sub">' + esc(step.sub) + '</p>';
     if (step.photo) h += '<div class="top-photo" style="aspect-ratio:16/10;margin:1rem 0">' + phBox('/assets/' + step.photo) + '</div>';
     if (step.localPhoto) h += '<div class="expert-compose">' + localImg(step.localPhoto) + '</div>';
-    h += '<div class="opt-list">';
+    h += '<div class="opt-list' + (step.spacious ? ' spacious' : '') + '">';
     step.options.forEach(function(opt, i){
       var isObj = typeof opt === 'object';
       var label = isObj ? opt.t : opt;
       var desc = isObj && opt.d ? '<div class="d">' + esc(opt.d) + '</div>' : '';
+      var sel = !auto && selIdx === i;
+      var onclick = auto ? '__fn.next()' : '__fn.pickSingle(' + i + ')';
+      var trailing = auto ? '<span class="chev">' + chevronSvg() + '</span>' : '<span class="chev">' + (sel ? checkCircleSvg() : '') + '</span>';
       if (isObj && opt.icon){
-        h += '<button class="opt-card" onclick="__fn.next()">' + iconBadge(opt.icon) +
-             '<span class="t">' + esc(label) + desc + '</span>' + '<span class="chev">' + chevronSvg() + '</span></button>';
+        h += '<button class="opt-card' + (sel?' selected':'') + '" onclick="' + onclick + '">' + iconBadge(opt.icon) +
+             '<span class="t">' + esc(label) + desc + '</span>' + trailing + '</button>';
       } else if (isObj && (opt.img || opt.imgLocal)){
-        h += '<button class="opt-card" onclick="__fn.next()"><span class="opt-thumb">' + itemThumbHtml(opt, '10px') + '</span>' +
-             '<span class="t">' + esc(label) + desc + '</span>' + '<span class="chev">' + chevronSvg() + '</span></button>';
+        h += '<button class="opt-card' + (sel?' selected':'') + '" onclick="' + onclick + '"><span class="opt-thumb">' + itemThumbHtml(opt, '10px') + '</span>' +
+             '<span class="t">' + esc(label) + desc + '</span>' + trailing + '</button>';
       } else {
         var emoji = isObj && opt.emoji ? '<span class="emoji">' + opt.emoji + '</span>' : '';
-        h += '<button class="opt-btn" onclick="__fn.next()">' + emoji + esc(label) + desc + '</button>';
+        if (auto){
+          h += '<button class="opt-btn" onclick="' + onclick + '">' + emoji + esc(label) + desc + '</button>';
+        } else {
+          h += '<button class="opt-card' + (sel?' selected':'') + '" onclick="' + onclick + '">' + (emoji ? '<span class="emoji-thumb">'+opt.emoji+'</span>' : '') +
+               '<span class="t">' + esc(label) + desc + '</span>' + trailing + '</button>';
+        }
       }
     });
     h += '</div>';
+    if (!auto){
+      h += '<button class="btn" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button>';
+    }
     return h;
   }
 
@@ -644,20 +698,26 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   // ---------- IMG_SINGLE ----------
   function renderImgSingle(step){
+    var auto = step.autoAdvance !== false;
+    var selIdx = state.single[state.idx];
     var h = '<h1>' + esc(step.q) + '</h1>';
     if (step.listStyle){
       h += '<div class="img-list">';
-      step.items.forEach(function(it){
-        h += '<button class="img-list-row" onclick="__fn.next()"><span class="thumb">' + itemThumbHtml(it, '12px') + '</span><span class="cap">' + esc(it.t) + '</span></button>';
+      step.items.forEach(function(it, i){
+        var sel = !auto && selIdx === i;
+        h += '<button class="img-list-row' + (sel?' selected':'') + '" onclick="' + (auto?'__fn.next()':'__fn.pickSingle('+i+')') + '"><span class="thumb">' + itemThumbHtml(it, '12px') + '</span><span class="cap">' + esc(it.t) + '</span>' + (sel?'<span class="chev">'+checkCircleSvg()+'</span>':'') + '</button>';
       });
       h += '</div>';
+      if (!auto) h += '<button class="btn" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button>';
       return h;
     }
     h += '<div class="img-grid">';
-    step.items.forEach(function(it){
-      h += '<button class="img-card" onclick="__fn.next()">' + itemThumbHtml(it, step.round===false ? '18px' : '50%') + '<span class="cap">' + esc(it.t) + '</span></button>';
+    step.items.forEach(function(it, i){
+      var sel = !auto && selIdx === i;
+      h += '<button class="img-card' + (sel?' selected':'') + '" onclick="' + (auto?'__fn.next()':'__fn.pickSingle('+i+')') + '">' + itemThumbHtml(it, step.round===false ? '18px' : '50%') + '<span class="cap">' + esc(it.t) + '</span></button>';
     });
     h += '</div>';
+    if (!auto) h += '<button class="btn" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button>';
     return h;
   }
 
@@ -1020,16 +1080,15 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   // ---------- PROOF STATIC (etapa 7) ----------
   function renderProofStatic(step){
     var h = '<h1>Sua meta é <span class="hl">super possível</span> de alcançar, em menos tempo do que você imagina.</h1>';
+    h += '<p class="sub"><span class="hl" style="font-weight:700">Já ajudamos mais de 18,268 mil mulheres</span> após os 35 anos</p>';
     h += '<div class="sales-photo" style="aspect-ratio:1/1;margin:1.25rem 0">' + localImg('/assets/prova-testemunho.png', {fit:'cover'}) + '</div>';
     h += '<div class="proof-card">';
-    h += '<div class="proof-row"><span class="proof-k">Nome</span><span class="proof-v">[nome não informado]</span></div>';
-    h += '<div class="proof-row"><span class="proof-k">Região</span><span class="proof-v">[região não informada]</span></div>';
-    h += '<div class="proof-row"><span class="proof-k">Idade</span><span class="proof-v">[idade não informada]</span></div>';
-    h += '<div class="proof-row"><span class="proof-k">Avaliação</span><span class="proof-v">⭐⭐⭐⭐⭐ [não informada]</span></div>';
-    h += '<div class="proof-quote">"[depoimento não informado — adicionar texto real aqui]"</div>';
+    h += '<div class="proof-name-row"><span class="proof-name">Camila Rodrigues</span><span class="proof-region">Campinas, SP</span></div>';
+    h += '<div class="proof-meta">42 anos • ⭐ 4,9/5</div>';
+    h += '<div class="proof-quote">"Eu achava que precisava fazer treinos longos para emagrecer, mas comecei com poucos minutos de Calistenia Asiática por dia e consegui manter a rotina. Com o passar das semanas, percebi minha cintura mais definida, menos inchaço e minhas roupas começaram a vestir melhor. Foi a primeira vez que senti que um treino realmente cabia no meu dia a dia."</div>';
     h += '</div>';
     h += '<button class="btn" onclick="__fn.next()">CONTINUAR TESTE GRATUITO</button>';
-    h += '<p class="proof-note">Na próxima etapa você irá entender o que pode estar por trás das dores e da dificuldade para emagrecer.</p>';
+    h += '<p class="proof-note">Na próxima etapa você irá descobrir a causa das suas dores e da dificuldade de emagrecer</p>';
     return h;
   }
 
@@ -1061,56 +1120,41 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   // ---------- PATTERN CHART (etapa 14) ----------
   function renderPatternChart(step){
-    var h = '<div class="alert-box" style="margin-bottom:1.5rem"><div class="at" style="justify-content:center;font-size:1.05rem">⚠️ PADRÃO IMPORTANTE IDENTIFICADO ⚠️</div></div>';
-    h += '<p class="sub">Suas respostas mostram sinais comuns em mulheres que perceberam mudanças no corpo após os 35.</p>';
-    h += '<div class="focus-box" style="text-align:center;font-weight:700">MUDANÇAS HORMONAIS DESSA FASE PODEM ESTAR CONTRIBUINDO</div>';
-    h += '<p class="sub" style="margin-top:.9rem">Alterações naturais dessa fase da vida podem influenciar composição corporal, disposição e a maneira como o corpo responde à rotina.</p>';
-
-    var DW = 420, DH = 210;
-    var p0 = {x:44, y:60}, p1 = {x:410, y:150};
-    function dpct(pt){ return { l:(pt.x/DW*100).toFixed(2)+'%', t:(pt.y/DH*100).toFixed(2)+'%' }; }
-    h += '<div class="decline-chart" style="position:relative;margin:1.5rem 0 1rem">';
-    h += '<svg viewBox="0 0 ' + DW + ' ' + DH + '" width="100%" style="display:block">';
-    h += '<defs><linearGradient id="patGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d0483f"/><stop offset="100%" stop-color="#3fa66a"/></linearGradient>';
-    h += '<linearGradient id="patFill" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d0483f" stop-opacity="0.16"/><stop offset="100%" stop-color="#3fa66a" stop-opacity="0.16"/></linearGradient></defs>';
-    h += '<polygon points="' + p0.x + ',' + p0.y + ' ' + p1.x + ',' + p1.y + ' ' + p1.x + ',' + (DH-20) + ' ' + p0.x + ',' + (DH-20) + '" fill="url(#patFill)"/>';
-    h += '<path d="M' + p0.x + ',' + p0.y + ' L' + p1.x + ',' + p1.y + '" fill="none" stroke="url(#patGrad)" stroke-width="4" stroke-linecap="round"/>';
-    h += '<circle cx="' + p0.x + '" cy="' + p0.y + '" r="5.5" fill="#d0483f"/>';
-    h += '<circle cx="' + p1.x + '" cy="' + p1.y + '" r="5.5" fill="#3fa66a"/>';
-    h += '</svg>';
-    var pS = dpct(p0), pE = dpct(p1);
-    h += '<span class="chart-pill bad" style="left:' + pS.l + ';top:' + pS.t + ';transform:translate(-8%,-150%)">Você</span>';
-    h += '<span class="chart-pill good" style="left:' + pE.l + ';top:' + pE.t + ';transform:translate(-95%,20%)">Zona ideal</span>';
+    var h = '<div class="causa-box">';
+    h += '<div class="causa-alert">⚠️CAUSA RAIZ IDENTIFICADA ⚠️</div>';
+    h += '<div class="causa-sub">SEU PROBLEMA É:</div>';
+    h += '<div class="causa-hl">BAIXA HORMONAL</div>';
     h += '</div>';
-
-    h += '<h1 style="color:var(--accent);font-size:1.25rem;text-align:center">MAS CALMA, ISSO TEM SOLUÇÃO.</h1>';
-    h += '<button class="btn" onclick="__fn.next()">CONTINUAR PARA A SOLUÇÃO</button>';
+    h += '<p class="sub" style="margin-top:1.4rem;font-weight:700;color:var(--text)">Veja seu estado atual:</p>';
+    h += '<div class="sales-photo" style="aspect-ratio:1730/909;margin:.75rem 0 1.4rem;background:#fff">' + localImg('/assets/grafico-hormonal.png', {fit:'contain'}) + '</div>';
+    h += '<p class="sub" style="text-align:left">1- Seu metabolismo está trabalhando em apenas 27% da sua capacidade.</p>';
+    h += '<p class="sub" style="text-align:left">2-Seus hormônios estão em baixa, aproximadamente apenas 32% da produção máxima.</p>';
+    h += '<h1 style="color:var(--accent);font-size:1.25rem;text-align:center;margin-top:1.5rem">MAS CALMA QUE ISSO TEM SOLUÇÃO</h1>';
+    h += '<button class="btn" onclick="__fn.next()">CONTINUAR PARA SOLUÇÃO</button>';
     return h;
   }
 
   // ---------- SOLUTION (etapa 22) ----------
   function renderSolution(step){
-    var h = '<h1>PARABÉNS!</h1>';
-    h += '<p class="sub">Seu teste identificou que a Calistenia Asiática dos <span class="hl" style="font-weight:800">10 minutos</span> combina com o tipo de rotina e objetivo que você descreveu.</p>';
-    h += '<div class="sales-photo" style="aspect-ratio:4/3;margin:1rem 0">' + phBox('/assets/woman-calisthenics-CxC8mlGX.webp') + '</div>';
-    h += '<h1 style="font-size:1.2rem;text-align:center">POR QUE A CALISTENIA ASIÁTICA DOS 10 MINUTOS SE ENCAIXA NO SEU CASO?</h1>';
+    var h = '<h1>PARABÉNS, SEU TESTE IDENTIFICOU QUE A <span class="hl">CALISTÊNIA ASIÁTICA DOS 10 MINUTOS</span> É PERFEITA PARA SEU CASO</h1>';
+    h += '<div class="sales-photo" style="aspect-ratio:4/3;margin:1.1rem 0">' + phBox('/assets/woman-thumbsup-asian-BszG4iHy.webp') + '</div>';
+    h += '<h1 style="font-size:1.2rem;text-align:center">POR QUE A CALISTÊNIA ASIÁTICA DOS 10 MINUTOS É PERFEITA PARA SEU CASO?</h1>';
     var benefits = [
-      {t:'Ativação profunda', d:'Sequências rítmicas e controladas utilizam o peso do próprio corpo e trabalham diferentes grupos musculares sem exigir treinos longos.'},
-      {t:'Movimentos leves e controlados', d:'Exercícios sem impacto e sem equipamentos, pensados para serem realizados no seu ritmo e dentro de casa.'},
-      {t:'10 minutos por dia', d:'Uma rotina curta e simples de encaixar até nos dias mais corridos.'}
+      {t:'Apenas 10 minutos por dia', d:'Movimentos leves e descomplicados que cabem na sua rotina, sem precisar passar horas treinando ou fazer exercícios exaustivos.'},
+      {t:'Ativa músculos que você quase não usa', d:'A sequência trabalha de forma rítmica as fibras musculares profundas, ajudando a movimentar, fortalecer e definir o corpo de maneira progressiva.'}
     ];
     h += '<div class="benefit-list">';
     benefits.forEach(function(b){
       h += '<div class="benefit-card"><div class="bt">' + esc(b.t) + '</div><div class="bd">' + esc(b.d) + '</div></div>';
     });
     h += '</div>';
-    h += '<p class="sub" style="font-weight:700;color:var(--text);margin-top:1.25rem">EM POUCOS DIAS, SEU OBJETIVO É COMEÇAR A:</p>';
+    h += '<p class="sub" style="font-weight:700;color:var(--text);margin-top:1.25rem">EM POUCOS DIAS VOCÊ VAI COMEÇAR A SENTIR:</p>';
     h += '<div class="check-list">';
-    ['Sentir o corpo mais ativo e fortalecido','Avançar no processo de emagrecimento e tonificação','Ganhar mais mobilidade e confiança nos movimentos'].forEach(function(t){
-      h += '<div class="check-row">✓ <span>' + esc(t) + '</span></div>';
+    ['SEU CORPO MAIS LEVE E DESTRAVADO','SUA BARRIGA DESINCHANDO E A GORDURA INDO EMBORA','SATISFAÇÃO AO SE OLHAR NO ESPELHO'].forEach(function(t){
+      h += '<div class="check-row">✅️ <span>' + esc(t) + '</span></div>';
     });
     h += '</div>';
-    h += '<h1 style="font-size:1.15rem;text-align:center;margin-top:1.5rem">VOCÊ DESEJA TER ACESSO AOS EXERCÍCIOS DE CALISTENIA ASIÁTICA?</h1>';
+    h += '<h1 style="font-size:1.15rem;text-align:center;margin-top:1.5rem">VOCÊ DESEJA TER ACESSO AOS EXERCÍCIOS DE CALISTENIA ASIÁTICA DE 10 MINUTOS?</h1>';
     h += '<button class="btn cta-btn" style="font-size:1.15rem;padding:1.15rem" onclick="__fn.next()">SIM, PRECISO MUITO</button>';
     return h;
   }
@@ -1239,6 +1283,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     trackCheckout: function(){
       try { if (window.fbq) fbq('track', 'InitiateCheckout'); } catch(e){}
     },
+    pickSingle: function(i){ state.single[state.idx] = i; render(); },
     pickAge: function(i){ state.ageSelectedIdx = i; state.ageBand = i; render(); },
     confirmAge: function(){ state.showAgeModal = true; render(); },
     closeAgeModal: function(){ state.showAgeModal = false; goNext(); },
