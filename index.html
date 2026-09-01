@@ -567,7 +567,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var html = '';
     html += '<header class="hdr">';
     html += '<button class="hdr-back" ' + (state.history.length ? '' : 'disabled') + ' onclick="__fn.back()" aria-label="Voltar">' + chevronSvg() + '</button>';
-    html += '<div class="hdr-logo-wrap"><span class="hdr-logo">CALISTENIA ASIÁTICA</span><span class="hdr-badge">by Atlas</span></div>';
+    html += '<div class="hdr-logo-wrap"><span class="hdr-logo">CALISTENIA ASIÁTICA</span></div>';
     html += '</header>';
     if (pct >= 0){
       html += '<div class="progress"><div class="progress-fill" style="width:' + pct + '%"></div></div>';
@@ -615,7 +615,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   function renderAge(step){
     var h = '<div class="age-body">';
     h += '<div class="hero-side-ph">' + localImg('/assets/expert-step1.png') + '</div>';
-    h += '<div class="title" style="text-align:left;margin-top:1rem;width:76%;margin-left:0;margin-right:auto">';
+    h += '<div class="title" style="text-align:center;margin-top:1rem;width:100%">';
     h += '<h1>Programa de Calistenia Asiática <span class="hl">para Mulheres</span></h1>';
     h += '<p class="sub" style="margin-top:.5rem">Quantos anos você tem?</p>';
     h += '</div>';
