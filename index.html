@@ -218,21 +218,6 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .transform-fade{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:1/1;border-radius:1rem;overflow:hidden;background:var(--ph-bg)}
   .tf-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
   .tf-img.active{opacity:1}
-  /* imagem da etapa "Identificando a solução para seu caso" */
-.loading-image{
-  width:100%;
-  min-height:0;
-  margin:1.5rem 0 2rem;
-}
-
-.loading-image img{
-  width:100% !important;
-  height:auto !important;
-  max-width:100% !important;
-  max-height:none !important;
-  object-fit:contain !important;
-  display:block !important;
-}
 
   .done-wrap{text-align:center}
   .done-wrap .big{font-size:2.4rem;margin-bottom:.5rem}
@@ -461,7 +446,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         {t:'Menos de 5 horas', emoji:'⏰'}, {t:'5 – 6 horas', emoji:'🌙'},
         {t:'7 – 8 horas', emoji:'😴'}, {t:'Mais de 8 horas', emoji:'☀️'}
       ] },
-    /* 20 etapa 21 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando a solução para seu caso', image:'https://i.imgur.com/EEoz2aj.png' },
+    /* 20 etapa 21 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando a solução para seu caso', image:'/assets/expert-step3.png' },
     /* 21 etapa 22 */ { type: 'solution', noProgress:true },
     /* 22 etapa 23 */ { type: 'plan-reveal', noProgress:true, days:21 },
     /* 23 etapa 24 */ { type: 'imc-profile', noProgress:true },
@@ -478,8 +463,9 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         {t:'Sim, 10 minutos eu consigo', emoji:'✅'},
         {t:'Estou disposta a tentar', emoji:'🤍'}
       ] },
-    /* 26 etapa 27 */ { type: LOADING, noProgress:true },
-    /* 27 etapa 28 */ { type: 'video-final', noProgress:true }
+    /* 26 etapa 27 */ { type: 'plan-ready', noProgress:true },
+    /* 27 etapa 28 */ { type: LOADING, noProgress:true },
+    /* 28 etapa 29 */ { type: 'video-final', noProgress:true }
   ];
 
   var TOTAL = STEPS.length;
@@ -1084,8 +1070,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   }
 
   function renderVideoFinal(step){
-    var h = '<h1>Seu plano de Calistenia Asiática de 10 Minutos está <span class="hl">pronto</span>!</h1>';
-    h += '<p class="sub">Assista ao vídeo abaixo para entender como funciona...</p>';
+    var h = '<h1>Seu plano de Calistenia Asiática está <span class="hl">pronto</span>!</h1>';
+    h += '<p class="sub">Veja como entrar no programa no vídeo abaixo.</p>';
     h += '<div id="vslWrap" style="max-width:400px;margin:0 auto">';
     h += '<vturb-smartplayer id="vid-6a926075cd983e8ee7e2752b" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 178.14814814814815% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>';
     h += '</div>';
@@ -1112,7 +1098,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   function renderSimpleLoading(step){
     var h = '<h1>' + esc(step.title) + '</h1>';
     h += '<p class="sub">' + esc(step.subtitle) + '</p>';
-    if (step.image) h += '<div class="expert-compose loading-image">' + localImg(step.image) + '</div>';
+    if (step.image) h += '<div class="expert-compose">' + localImg(step.image) + '</div>';
     h += '<div class="loading-bar-track"><div class="loading-bar-fill" id="loadFill"></div></div>';
     h += '<div class="loading-pct" id="loadPct">0%</div>';
     return h;
