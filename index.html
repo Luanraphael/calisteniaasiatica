@@ -175,7 +175,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .multi-row.checked .checkbox{border-color:var(--accent);background:var(--accent)}
   .multi-row.checked .checkbox::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 
-  .btn{display:block;width:100%;text-align:center;background:var(--accent);color:var(--accent-text);font-weight:600;font-size:1.05rem;padding:1rem;border-radius:999px;border:none;cursor:pointer;font-family:inherit;margin-top:.5rem}
+  .btn{display:block;width:100%;text-align:center;background:var(--accent);color:var(--accent-text);font-weight:600;font-size:1.05rem;padding:1rem;border-radius:999px;border:none;cursor:pointer;font-family:inherit;margin-top:1.25rem}
   .btn[disabled]{opacity:.4;cursor:not-allowed}
 
   /* slider (height/weight) */
@@ -385,8 +385,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       ] },
     /* 2  etapa 3  */ { type: SINGLE, autoAdvance:false, spacious:true, q: 'Você acumula gordura na barriga com facilidade?',
       options: [
-        {t:'Sim, é o principal lugar', icon:'target'},
-        {t:'Acumulo mais em outros locais', icon:'move'}
+        {t:'Sim, é o principal lugar', emoji:'🎯'},
+        {t:'Acumulo mais em outros locais', emoji:'🔄'}
       ] },
     /* 3  etapa 4  */ { type: SINGLE, spacious:true, q: 'Quantos quilos você gostaria de eliminar?',
       options: [
@@ -399,8 +399,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       ] },
     /* 5  etapa 6  */ { type: SINGLE, spacious:true, q: 'Qual mudança você mais quer perceber no seu corpo?',
       options: [
-        {t:'Perder peso', icon:'scale'}, {t:'Diminuir a barriga', icon:'target'},
-        {t:'Tonificar e reduzir a flacidez', icon:'dumbbell'}, {t:'Voltar a me sentir bem com meu corpo', icon:'heart'}
+        {t:'Perder peso', emoji:'⚖️'}, {t:'Diminuir a barriga', emoji:'🎯'},
+        {t:'Tonificar e reduzir a flacidez', emoji:'💪'}, {t:'Voltar a me sentir bem com meu corpo', emoji:'❤️'}
       ] },
     /* 6  etapa 7  */ { type: 'proof-static' },
     /* 7  etapa 8  */ { type: SINGLE, spacious:true, q: 'Depois dos 35, percebeu que seu corpo começou a responder diferente?',
@@ -416,8 +416,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       ] },
     /* 9  etapa 10 */ { type: SINGLE, spacious:true, q: 'Você evita alguns exercícios por medo de sentir dor ou se machucar?',
       options: [
-        {t:'Sim, frequentemente', icon:'x'}, {t:'Às vezes', icon:'move'},
-        {t:'Não, mas prefiro movimentos leves', icon:'sparkles2'}, {t:'Não tenho esse problema', icon:'userCheck'}
+        {t:'Sim, frequentemente', emoji:'😟'}, {t:'Às vezes', emoji:'😐'},
+        {t:'Não, mas prefiro movimentos leves', emoji:'🙂'}, {t:'Não tenho esse problema', emoji:'✅'}
       ] },
     /* 10 etapa 11 */ { type: INFO, titleHtml: '<span class="hl">FIQUE TRANQUILA</span>, A Calistenia Asiática utiliza movimentos leves, controlados e sem impacto, que são feitos justamente para adaptar ao seu ritmo.', noBody:true,
       photo: 'woman-couch-exercise-DxhhEtty.webp' },
@@ -441,10 +441,10 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         {t:'Trabalho em casa e tenho uma rotina flexível', emoji:'🏠'},
         {t:'Atualmente não trabalho', emoji:'😊'}
       ] },
-    /* 19 etapa 20 */ { type: SINGLE, spacious:true, q: 'Quantas horas você costuma dormir?',
+    /* 19 etapa 20 */ { type: SINGLE, spacious:true, q: 'Quantas horas você costuma dormir?', bigPhoto:'/assets/woman-sleeping-mobile-CwFeGCXZ.webp', bigPhotoRatio:'1920/1364',
       options: [
-        {t:'Menos de 5 horas', icon:'clock'}, {t:'5 – 6 horas', icon:'moon'},
-        {t:'7 – 8 horas', icon:'moon'}, {t:'Mais de 8 horas', icon:'sun'}
+        {t:'Menos de 5 horas', emoji:'⏰'}, {t:'5 – 6 horas', emoji:'🌙'},
+        {t:'7 – 8 horas', emoji:'😴'}, {t:'Mais de 8 horas', emoji:'☀️'}
       ] },
     /* 20 etapa 21 */ { type: 'simple-loading', title:'Analisando suas respostas', subtitle:'Identificando a solução para seu caso', image:'/assets/expert-step3.png' },
     /* 21 etapa 22 */ { type: 'solution', noProgress:true },
@@ -460,8 +460,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     /* 25 etapa 26 */ { type: SINGLE, noProgress:true, spacious:true,
       qHtml: 'Você consegue dedicar apenas <span class="hl">10 minutos por dia</span> de Calistenia Asiática durante <span class="hl">21 dias</span> para começar a ter o seu corpo dos sonhos e se tornar irreconhecível?',
       options: [
-        {t:'Sim, 10 minutos eu consigo', icon:'rocket'},
-        {t:'Estou disposta a tentar', icon:'heartOutline'}
+        {t:'Sim, 10 minutos eu consigo', emoji:'✅'},
+        {t:'Estou disposta a tentar', emoji:'🤍'}
       ] },
     /* 26 etapa 27 */ { type: LOADING, noProgress:true },
     /* 27 etapa 28 */ { type: 'video-final', noProgress:true }
@@ -658,6 +658,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     if (step.sub) h += '<p class="sub">' + esc(step.sub) + '</p>';
     if (step.photo) h += '<div class="top-photo" style="aspect-ratio:16/10;margin:1rem 0">' + phBox('/assets/' + step.photo) + '</div>';
     if (step.localPhoto) h += '<div class="expert-compose">' + localImg(step.localPhoto) + '</div>';
+    if (step.bigPhoto) h += '<div class="sales-photo" style="aspect-ratio:' + (step.bigPhotoRatio||'1/1') + ';margin:1rem 0">' + localImg(step.bigPhoto, {fit:'cover'}) + '</div>';
     h += '<div class="opt-list' + (step.spacious ? ' spacious' : '') + '">';
     step.options.forEach(function(opt, i){
       var isObj = typeof opt === 'object';
@@ -1129,7 +1130,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     h += '<div class="sales-photo" style="aspect-ratio:1730/909;margin:.75rem 0 1.4rem;background:#fff">' + localImg('/assets/grafico-hormonal.png', {fit:'contain'}) + '</div>';
     h += '<p class="sub" style="text-align:left">1- Seu metabolismo está trabalhando em apenas 27% da sua capacidade.</p>';
     h += '<p class="sub" style="text-align:left">2-Seus hormônios estão em baixa, aproximadamente apenas 32% da produção máxima.</p>';
-    h += '<h1 style="color:var(--accent);font-size:1.25rem;text-align:center;margin-top:1.5rem">MAS CALMA QUE ISSO TEM SOLUÇÃO</h1>';
+    h += '<h1 style="color:var(--accent);font-size:1.25rem;text-align:center;margin-top:1.5rem;margin-bottom:1.5rem">MAS CALMA QUE ISSO TEM SOLUÇÃO</h1>';
     h += '<button class="btn" onclick="__fn.next()">CONTINUAR PARA SOLUÇÃO</button>';
     return h;
   }
