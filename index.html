@@ -970,6 +970,11 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     var mm = String(d.getMonth()+1).padStart(2,'0');
     return dd + '/' + mm + '/' + d.getFullYear();
   }
+  function todayLongDateStr(){
+    var d = new Date();
+    var months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    return d.getDate() + ' de ' + months[d.getMonth()];
+  }
 
   var BULLETS = [
     {t:'Ativação das Fibras Profundas', d:'o segredo asiático para destravar o metabolismo e queimar gordura de verdade, sem precisar se matar na academia.'},
@@ -1006,7 +1011,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     h += '<div class="stock-pill">Restam apenas 7 vagas</div>';
     h += '<div class="price-row"><span class="price-old">De R$297,00</span></div>';
     h += '<div class="price-row"><span class="price-lbl">por</span> <span class="price-new">R$37,90</span></div>';
-    h += '<div class="price-note">Desconto válido apenas hoje, 1 de SET</div>';
+    h += '<div class="price-note">Desconto válido apenas hoje, <span class="hl" style="font-weight:700">' + todayLongDateStr() + '</span></div>';
     h += '<div class="price-note">Pagamento único • Acesso completo ao programa</div>';
     h += '<div class="price-note">🔒 Compra 100% Segura • 30 Dias de Garantia Incondicional</div>';
     h += '<a class="btn cta-btn" href="' + esc(CHECKOUT_URL) + '" target="_blank" rel="noopener" onclick="__fn.trackCheckout()">Obter meu plano personalizado agora</a>';
