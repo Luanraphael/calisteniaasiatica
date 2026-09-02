@@ -308,14 +308,20 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .testimonial{margin-bottom:1.75rem}
   .t-tag{font-weight:700;margin-bottom:.4rem}
   .t-quote{font-size:.92rem;color:var(--text-muted);line-height:1.55;font-style:italic}
-  .bonus-list{margin-bottom:1.5rem}
-  .bonus-row{display:flex;gap:.75rem;align-items:flex-start;margin-bottom:1rem;font-size:.92rem;line-height:1.5}
-  .bonus-n{flex:0 0 auto;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+  .bonus-list{margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.75rem}
+  .bonus-row{display:flex;gap:.9rem;align-items:flex-start;background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07);padding:.9rem 1rem}
+  .bonus-n{flex:0 0 auto;width:2.5rem;height:2.5rem;border-radius:50%;background:var(--info-icon-bg);color:var(--accent);font-size:1.2rem;display:flex;align-items:center;justify-content:center}
+  .bonus-body{min-width:0}
+  .bonus-t{font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:.2rem}
+  .bonus-d{font-size:.86rem;color:var(--text-muted);line-height:1.5}
   .guarantee-box{background:#fff;border-radius:16px;box-shadow:0 1px 4px rgba(0,0,0,.07);padding:1.5rem;text-align:center;margin-bottom:1.5rem}
-  .faq-list{margin-bottom:1.5rem}
-  .faq-item{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);padding:.9rem 1.1rem;margin-bottom:.6rem}
-  .faq-item summary{cursor:pointer;font-weight:600;font-size:.95rem}
-  .faq-item .faq-a{margin-top:.6rem;font-size:.88rem;color:var(--text-muted);line-height:1.5}
+  .faq-list{margin-bottom:1.5rem;max-width:560px;margin-left:auto;margin-right:auto}
+  .faq-item{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:.6rem;overflow:hidden}
+  .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:.75rem;text-align:left;background:none;border:0;cursor:pointer;font:inherit;padding:.95rem 1.1rem;font-weight:600;font-size:.95rem;color:var(--text)}
+  .faq-q .faq-icon{flex:0 0 auto;width:1.4rem;height:1.4rem;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.05rem;font-weight:700;transition:transform .3s ease}
+  .faq-item.open .faq-q .faq-icon{transform:rotate(45deg)}
+  .faq-panel{max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.22,.9,.32,1)}
+  .faq-a{padding:0 1.1rem 1rem;font-size:.88rem;color:var(--text-muted);line-height:1.55}
 
   /* proof-static (etapa 7) */
   .proof-card{background:#fff;border-radius:16px;box-shadow:0 1px 4px rgba(0,0,0,.07);padding:1.1rem 1.25rem;margin-bottom:1.25rem}
@@ -1009,15 +1015,32 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
      quote:'Depois da gravidez, essa \'pochete\' não saía por nada e minha postura estava horrível. Os movimentos suaves da Calistenia Asiática foram a minha salvação. Recuperei minha postura e eliminei 8kg em 21 dias. Finalmente estou vendo minha barriga ficar retinha de novo, sem precisar de impacto.'}
   ];
   var BONUSES = [
-    {t:'Chá Asiático Anticelulite', d:'Misture uma planta pouco conhecida com água morna para assistir às celulites sumindo dia após dia.'},
-    {t:'Dieta 100% Personalizada', d:'Você terá acesso a diversas receitas para preparar e ver a gordura indo embora muito mais rápido.'},
-    {t:'Cronograma de Alimentação Inteligente', d:'O passo a passo completo para manter seu metabolismo acelerado e sua reeducação alimentar.'},
-    {t:'Suporte 24h Todos os Dias', d:'Nosso time estará pronto para te ajudar com qualquer dúvida, independente do horário.'}
+    {icon:'🍵', t:'Receitas Detox, Sucos e Chás', d:'Receitas práticas para complementar sua rotina, com opções de sucos, chás e preparações leves.'},
+    {icon:'🌙', t:'Guia do Sono', d:'Um guia para ajudar você a organizar melhor sua rotina de sono e entender a importância do descanso durante o programa.'},
+    {icon:'⏱️', t:'Treino Express de 5 Minutos', d:'Uma sequência rápida para os dias mais corridos, quando você não consegue fazer o treino completo de 10 minutos.'},
+    {icon:'🎁', t:'Bônus Surpresa', d:'Conteúdos extras que serão desbloqueados conforme você avança dentro do programa.'}
   ];
   var FAQS = [
-    'Quais exercícios a Calistenia inclui?',
-    'Como vou descobrir qual programa é ideal para mim?',
-    'Como posso acessar meu plano?'
+    {q:'Nunca fiz Calistenia Asiática e estou há muito tempo sem me exercitar. Vou conseguir acompanhar?',
+     a:'Sim. Os treinos foram organizados para serem simples, progressivos e fáceis de acompanhar, mesmo para quem está começando agora ou está há bastante tempo sem se exercitar. Você faz os movimentos no seu ritmo e usa apenas o peso do próprio corpo.'},
+    {q:'Tenho mais de 40 ou 50 anos. A Calistenia Asiática também serve para mim?',
+     a:'Sim. O programa foi pensado especialmente para mulheres que perceberam mudanças no corpo depois dos 35 anos e querem voltar a se exercitar de uma forma simples e possível de encaixar na rotina. Os movimentos são controlados, sem impacto e podem ser feitos no seu próprio ritmo.'},
+    {q:'Tenho dores ou desconfortos no corpo. Posso fazer os exercícios?',
+     a:'A Calistenia Asiática utiliza movimentos leves, controlados e sem impacto, justamente para tornar os treinos mais confortáveis e acessíveis. Você pode respeitar os limites do seu corpo e avançar de forma progressiva. Se você possui uma lesão, condição médica ou dor persistente, consulte um profissional de saúde antes de iniciar qualquer programa de exercícios.'},
+    {q:'Preciso ir à academia ou comprar algum equipamento?',
+     a:'Não. O programa foi criado para ser feito em casa, utilizando principalmente o peso do próprio corpo. Você não precisa de academia, aparelhos caros ou uma estrutura especial para começar.'},
+    {q:'São apenas 10 minutos por dia mesmo?',
+     a:'Sim. Os treinos principais foram organizados em sessões curtas de aproximadamente 10 minutos por dia para facilitar a constância e encaixar o exercício até em uma rotina corrida. E nos dias em que estiver ainda mais sem tempo, você também terá o bônus Treino Express de 5 Minutos.'},
+    {q:'Qual é a diferença da Calistenia Asiática para um treino comum?',
+     a:'A proposta da Calistenia Asiática é combinar movimentos leves, controlados e rítmicos em sequências curtas, usando o peso do próprio corpo. Dentro do método, trabalhamos a chamada Ativação das Fibras Profundas, com exercícios organizados para fortalecer, movimentar e tonificar o corpo de forma progressiva sem depender de treinos longos ou exaustivos.'},
+    {q:'Eu também vou receber orientação para alimentação?',
+     a:'Sim. Além dos treinos, você terá acesso ao plano alimentar do programa e conteúdos complementares para ajudar a organizar sua rotina. Você também recebe o bônus com Receitas Detox, Sucos e Chás e o Guia do Sono.'},
+    {q:'O acesso é vitalício ou vou precisar pagar mensalidade?',
+     a:'O acesso ao aplicativo é vitalício. Você paga uma única vez e não existe mensalidade para continuar utilizando o programa. Dentro do app você poderá acompanhar seus treinos, seu progresso e continuar utilizando o conteúdo depois dos 21 dias.'},
+    {q:'E se eu comprar e perceber que não é para mim?',
+     a:'Você tem 30 dias para conhecer o programa. Se dentro desse período decidir que não quer continuar, poderá solicitar o reembolso conforme as condições da garantia. Assim, você pode acessar e conhecer o conteúdo com tranquilidade.'},
+    {q:'Como vou acompanhar meu progresso e tirar dúvidas?',
+     a:'Dentro do aplicativo você terá um gráfico de progresso para acompanhar sua evolução ao longo do programa e também acesso ao suporte pelo chat do app para enviar suas dúvidas durante a sua jornada.'}
   ];
 
   function priceBlockHtml(){
@@ -1062,8 +1085,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     h += '<h2 class="sp-h2" style="margin-top:2rem">+Bônus Exclusivos</h2>';
     h += '<p class="sub" style="margin-bottom:1rem">Além de você ter acesso às aulas e ao seu plano personalizado, separamos diversos bônus para te ajudar a acelerar o seu processo de emagrecimento rápido:</p>';
     h += '<div class="bonus-list">';
-    BONUSES.forEach(function(b, i){
-      h += '<div class="bonus-row"><span class="bonus-n">' + (i+1) + '</span><span><b>' + esc(b.t) + '</b> - ' + esc(b.d) + '</span></div>';
+    BONUSES.forEach(function(b){
+      h += '<div class="bonus-row"><span class="bonus-n">' + b.icon + '</span><span class="bonus-body"><div class="bonus-t">' + esc(b.t) + '</div><div class="bonus-d">' + esc(b.d) + '</div></span></div>';
     });
     h += '</div>';
 
@@ -1077,8 +1100,11 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
     h += '<h2 class="sp-h2">Perguntas frequentes</h2>';
     h += '<div class="faq-list">';
-    FAQS.forEach(function(q, i){
-      h += '<details class="faq-item"><summary>' + esc(q) + '</summary><div class="faq-a">Conteúdo a definir.</div></details>';
+    FAQS.forEach(function(f, i){
+      h += '<div class="faq-item" id="faqItem' + i + '">';
+      h += '<button type="button" class="faq-q" onclick="__fn.toggleFaq(' + i + ')"><span>' + esc(f.q) + '</span><span class="faq-icon">+</span></button>';
+      h += '<div class="faq-panel" id="faqPanel' + i + '"><div class="faq-a">' + esc(f.a) + '</div></div>';
+      h += '</div>';
     });
     h += '</div>';
 
@@ -1338,6 +1364,26 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     back: goBack,
     trackCheckout: function(){
       try { if (window.fbq) fbq('track', 'InitiateCheckout'); } catch(e){}
+    },
+    toggleFaq: function(i){
+      var item = document.getElementById('faqItem' + i);
+      var panel = document.getElementById('faqPanel' + i);
+      if (!item || !panel) return;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el){
+        if (el !== item){
+          el.classList.remove('open');
+          var p = el.querySelector('.faq-panel');
+          if (p) p.style.maxHeight = '0px';
+        }
+      });
+      if (wasOpen){
+        item.classList.remove('open');
+        panel.style.maxHeight = '0px';
+      } else {
+        item.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
     },
     pickSingle: function(i){ state.single[state.idx] = i; render(); },
     pickAge: function(i){ state.ageSelectedIdx = i; state.ageBand = i; render(); },
