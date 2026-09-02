@@ -69,14 +69,17 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
   #app{min-height:100vh;display:flex;flex-direction:column}
 
+  .offer-bar{display:none;align-items:center;justify-content:center;gap:.4rem;background:var(--accent);color:#fff;font-size:.9rem;padding:.6rem 1rem;text-align:center}
+  .offer-bar.show{display:flex}
+  .offer-bar strong{font-size:1.05rem;font-weight:800;letter-spacing:.02em}
   .hdr{display:flex;align-items:center;justify-content:center;position:relative;padding:.75rem 1rem;background:var(--card-bg)}
   .hdr-back{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:1.5rem;height:1.5rem;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;padding:0}
   .hdr-back[disabled]{visibility:hidden}
   .hdr-logo-wrap{display:flex;align-items:center;gap:.5rem}
   .hdr-logo{font-family:'Anton',system-ui,sans-serif;color:var(--accent);font-size:1.6rem;letter-spacing:.03em}
   .hdr-badge{font-size:.7rem;background:var(--badge-bg);color:var(--badge-text);padding:.15rem .55rem;border-radius:.3rem}
-  .progress{height:4px;background:var(--track-bg)}
-  .progress-fill{height:100%;background:var(--accent);transition:width .3s ease;width:0%}
+  .progress{height:12px;background:var(--track-bg);padding:2px;box-sizing:border-box}
+  .progress-fill{height:100%;background:var(--accent);border-radius:999px;transition:width .5s cubic-bezier(.22,.9,.32,1);width:0%;box-shadow:0 0 6px rgba(214,77,122,.5)}
 
   .main{flex:1;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 2.5rem;position:relative;overflow:hidden}
   .card{width:100%;max-width:560px;margin:0 auto}
@@ -176,6 +179,11 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
   .multi-row.checked .checkbox::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 
   .btn{display:block;width:100%;text-align:center;background:var(--accent);color:var(--accent-text);font-weight:600;font-size:1.05rem;padding:1rem;border-radius:999px;border:none;cursor:pointer;font-family:inherit;margin-top:1.25rem}
+  .btn-float-spacer{height:88px}
+  .btn-float-wrap{position:fixed;left:0;right:0;bottom:0;padding:.85rem 1.1rem calc(.85rem + env(safe-area-inset-bottom));background:linear-gradient(to top, var(--bg) 55%, rgba(250,250,250,0));z-index:50;pointer-events:none}
+  .btn-float-wrap .btn{max-width:560px;margin:0 auto;pointer-events:auto;box-shadow:0 6px 20px rgba(214,77,122,.35)}
+  .btn-float{transition:opacity .25s ease,box-shadow .25s ease}
+  .btn-float.pending{opacity:.42;box-shadow:none;cursor:not-allowed}
   .btn[disabled]{opacity:.4;cursor:not-allowed}
 
   /* slider (height/weight) */
@@ -332,6 +340,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600;700;800&display=swap">
 </head>
 <body>
+<div id="offerBar" class="offer-bar"><span>Oferta expira em:</span> <strong id="offerBarTime">10:00</strong></div>
 <div id="app"></div>
 
 <script>
@@ -530,7 +539,11 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     if (state.idx < 1 || step.noProgress) return -1;
     var span = LAST_PROGRESS_IDX - 1;
     var pos = state.idx - 1;
-    return Math.min(100, Math.max(0, (pos / span) * 100));
+    var linear = Math.min(1, Math.max(0, pos / span));
+    // front-loaded easing (like a VSL "fake" loading bar): early steps jump the
+    // bar forward a lot, then it visibly slows down on the way to 100%.
+    var eased = 1 - Math.pow(1 - linear, 2.6);
+    return Math.min(100, Math.max(0, eased * 100));
   }
 
   function goNext(){
@@ -686,7 +699,8 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     });
     h += '</div>';
     if (!auto){
-      h += '<button class="btn" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button>';
+      h += '<div class="btn-float-spacer"></div>';
+      h += '<div class="btn-float-wrap"><button class="btn btn-float' + (selIdx==null?' pending':'') + '" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button></div>';
     }
     return h;
   }
@@ -710,7 +724,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
         h += '<button class="img-list-row' + (sel?' selected':'') + '" onclick="' + (auto?'__fn.next()':'__fn.pickSingle('+i+')') + '"><span class="thumb">' + itemThumbHtml(it, '12px') + '</span><span class="cap">' + esc(it.t) + '</span>' + (sel?'<span class="chev">'+checkCircleSvg()+'</span>':'') + '</button>';
       });
       h += '</div>';
-      if (!auto) h += '<button class="btn" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button>';
+      if (!auto) h += '<div class="btn-float-spacer"></div><div class="btn-float-wrap"><button class="btn btn-float' + (selIdx==null?' pending':'') + '" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button></div>';
       return h;
     }
     h += '<div class="img-grid">';
@@ -719,7 +733,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       h += '<button class="img-card' + (sel?' selected':'') + '" onclick="' + (auto?'__fn.next()':'__fn.pickSingle('+i+')') + '">' + itemThumbHtml(it, step.round===false ? '18px' : '50%') + '<span class="cap">' + esc(it.t) + '</span></button>';
     });
     h += '</div>';
-    if (!auto) h += '<button class="btn" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button>';
+    if (!auto) h += '<div class="btn-float-spacer"></div><div class="btn-float-wrap"><button class="btn btn-float' + (selIdx==null?' pending':'') + '" ' + (selIdx==null?'disabled':'') + ' onclick="__fn.next()">' + esc(step.cta || 'CONTINUAR') + '</button></div>';
     return h;
   }
 
@@ -751,7 +765,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
       h += '</div>';
     });
     var enabled = (st.sel.size > 0) || st.toggle;
-    h += '<button class="btn" ' + (enabled?'':'disabled') + ' onclick="__fn.next()">' + esc(step.cta || 'Continuar') + '</button>';
+    h += '<div class="btn-float-spacer"></div><div class="btn-float-wrap"><button class="btn btn-float' + (enabled?'':' pending') + '" ' + (enabled?'':'disabled') + ' onclick="__fn.next()">' + esc(step.cta || 'Continuar') + '</button></div>';
     return h;
   }
 
@@ -958,7 +972,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
 
   // ---------- VIDEO FINAL (step 35) ----------
   var CHECKOUT_URL = 'https://pay.lowify.com.br/checkout.php?product_id=8KpWWB';
-  var VSL_REVEAL_SECONDS = 5*60 + 30; // 05:30
+  var VSL_REVEAL_SECONDS = 5*60 + 32; // 05:32 — real VSL playback time, not page time
   try {
     var __qs = new URLSearchParams(window.location.search);
     if (__qs.get('fastvsl')) VSL_REVEAL_SECONDS = parseInt(__qs.get('fastvsl'), 10) || 3;
@@ -1166,6 +1180,7 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     return h;
   }
 
+  var OFFER_TIMER_SECONDS = 10 * 60; // 10:00 countdown once the offer reveals
   function startVslTimer(){
     if (!document.getElementById('vid-6a926075cd983e8ee7e2752b')) return;
     if (!window.__vturbLoaded){
@@ -1177,11 +1192,45 @@ src="https://www.facebook.com/tr?id=937695465390802&ev=PageView&noscript=1"
     }
     var slot = document.getElementById('salesPageSlot');
     if (!slot) return;
-    setTimeout(function(){
-      if (!document.body.contains(slot)) return; // user already navigated away
-      slot.innerHTML = renderSalesPageHtml();
-      slot.classList.add('reveal');
-    }, VSL_REVEAL_SECONDS * 1000);
+    var revealed = false;
+    // Poll the real vturb player's own playback time (window.smartplayer.instances[id].video.currentTime)
+    // instead of a blind setTimeout tied to page-load — the offer only unlocks once the VSL has
+    // actually played up to VSL_REVEAL_SECONDS.
+    var poll = setInterval(function(){
+      if (revealed) { clearInterval(poll); return; }
+      if (!document.body.contains(slot)) { clearInterval(poll); return; }
+      try {
+        var sp = window.smartplayer;
+        if (!sp || !sp.instances) return;
+        var ids = Object.keys(sp.instances);
+        if (!ids.length) return;
+        var t = sp.instances[ids[0]].video.currentTime;
+        if (typeof t === 'number' && t >= VSL_REVEAL_SECONDS){
+          revealed = true;
+          clearInterval(poll);
+          slot.innerHTML = renderSalesPageHtml();
+          slot.classList.add('reveal');
+          startOfferCountdown();
+        }
+      } catch(e){}
+    }, 500);
+  }
+  function startOfferCountdown(){
+    var bar = document.getElementById('offerBar');
+    if (!bar) return;
+    bar.classList.add('show');
+    var remaining = OFFER_TIMER_SECONDS;
+    var el = document.getElementById('offerBarTime');
+    function paint(){
+      var m = Math.floor(remaining / 60), s = remaining % 60;
+      if (el) el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    }
+    paint();
+    var timer = setInterval(function(){
+      remaining--;
+      if (remaining < 0){ clearInterval(timer); return; }
+      paint();
+    }, 1000);
   }
 
   function runLoadingAnimation(){
